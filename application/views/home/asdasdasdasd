@@ -1,0 +1,253 @@
+<div class="search-items">
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#">
+                    <div class="card">
+                      <img src="<?=base_url('assets/img/img_avatar.png');?>" alt="Avatar" style="width:100%">
+                      <div class="desc">
+                        <h5><a href=""><b>Architect Title</b></a></h5>
+                        <p><small>*architect type*</small></p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+.d1 {
+  height: 200px;
+}
+
+.d2 {
+  height: 100%;
+}
+
+.d3 {
+  height: 100%;
+}
+
+.d3-1 {
+  height: 50px;
+}
+
+.d3-2 {
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+.d4 {
+  height: 90px;
+  width: 100px;
+  display: inline-block;
+  position: relative;
+   border: 1px solid black;
+}
+
+
+.d1 {
+  border: 1px solid black;
+}
+
+.d2 {
+  border: 2px solid red;
+}
+
+.d3-1 {
+  border: 2px solid yellow;
+}
+
+.d3-2 {
+  border: 2px solid green;
+}
+
+.d4 {
+  border: 2px solid blue;
+}
+<body>
+  <div class="d1">
+    <div class="d2">
+      <div class="d3">
+        <div class="d3-1">
+          HEADER
+        </div>
+        <div class="d3-2">
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+          <div class="d4">test</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
