@@ -129,4 +129,30 @@ class M_data extends CI_Model{
         $query  =   $this->db->get();
         return $query->result_array();
     }
+
+    function save_portofolio($id,$data){
+        if ($this->db->insert('portofolio',$data)) {
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    function countpost($id){
+        $this->db->select('*');
+        $this->db->from('portofolio');
+        $this->db->where('user_id',$id);
+        $query      = $this->db->get();
+        return $query->result_array();
+    }
+
+    function getListTukang(){
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('level','3');
+        $query  =   $this->db->get();
+        return $query->result_array();
+    }
+
 }

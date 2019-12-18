@@ -63,20 +63,63 @@
                            </div>
                            <div class="modal-body">
                               <form class="form" action="<?=base_url('dashboard/add_portofolio')?>" method="POST" enctype="multipart/form-data">
-                                 <div class="form-group">
-                                    <label>Judul</label>
-                                    <input class="form-control" type="text" name="title" required="">
+                                 <div class="form-inline">
+                                    <hr>   
+                                    <div class="form-group">
+                                       <label style="width: 100px;">Judul :</label>
+                                       <input class="form-control" type="text" name="title" required="">
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">                                       
+                                       <label style="width: 100px;">Gambar :</label>
+                                       <input class="form-control" type="file" name="img_url" accept="image/x-png,image/gif,image/jpeg" required="">
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                       <label style="width: 100px;">Tukang : </label>
+                                       <select class="form-control" name="tukang" required="">
+                                       <option disabled selected></option>
+                                          <?php foreach ($listtukang as $row) { ?>
+                                          <option value="<?=$row['id']?>"><?=ucwords($row['fname'].' '.$row['lname'])?></option>
+                                       <?php }?>
+                                       </select>
+                                    </div>  
+                                    <hr>
+                                    <label>Ukuran Tanah :</label>
+                                    <div class="form-group">
+                                       <label style="width: 100px;">Panjang</label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="panjang" required="">
+                                       <label style="width: 100px;">Lebar</label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="lebar" required="">
+                                    </div>  
+                                    <hr>
+                                    <div class="form-group">
+                                       <label style="width: 100px;">Luas Bangunan :</label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="luasbangunan" required="">
+                                    </div>
+                                    <hr>
+                                    <label>Jumlah </label>
+                                    <br>
+                                    <div class="form-group">
+                                       <label style="width: 100px;">Kamar Tidur : </label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamartidur" required="">
+                                       <label style="width: 100px;">Kamar Mandi :</label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamarmandi" required="">  
+                                       <label style="width: 100px;">Kamar Tamu :</label>
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamartidur" required="">
+                                    </div>
+                                    <hr>  
+                                    <div class="form-group"> 
+                                       <label style="width: 140px;">Jumlah Mobil Yang Bisa Ditampung :</label>
+                                       <input class="form-control" style="max-width: 70px;" type="number" name="title" required="">
+                                    </div> 
+                                    <hr> 
+                                    <div class="form-group">
+                                       <label style="width: 140px;">Harga</label>
+                                       Rp. <input class="form-control" style="max-width: 170px;" type="number" name="title" required="">
+                                    </div> 
                                  </div>
-                                 <div class="form-group">
-                                    <label>Gambar</label>
-                                    <input class="form-control" type="file" name="img_url" accept="image/x-png,image/gif,image/jpeg" required="">
-                                 </div>
-                                 <div class="form-group">
-                                    <label>Konten</label>
-                                    <textarea id="summernote" class="form-control" name="content" style="min-height: 300px">
-                                       
-                                    </textarea>
-                                 </div>                   
+                                                  
                            </div>
                            <div class="modal-footer">
                              <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>

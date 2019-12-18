@@ -38,7 +38,8 @@ class Dashboard extends CI_Controller {
 		$data['pagetitle']	= 'Griya Bangun Asri - Profile';
 		$data['uname']		= $username;
 		$data['userdata']	= $this->m_data->getUserdataByUsername($username);
-		$data['portofolio'] = $this->m_data->getUserData('portofolio','id = '.$data['userdata'][0]['id']);
+		$data['listtukang'] = $this->m_data->getListTukang();
+		$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
 
 		if (!$this->session->userdata('username') == '') {
 			$this->load->view('dashboard/v_header',$data);
@@ -138,9 +139,63 @@ class Dashboard extends CI_Controller {
 
 
 	public function add_portofolio(){
-		print_r($_FILES);
-		echo "<br>";
-		print_r($_POST);
+		
+		if (isset($_FILES['img_url']['name']) && !empty($_FILES) && isset($_POST) && !empty($_POST) ) {
+			
+			$username 	= $this->session->userdata('username');
+			$id 		= $this->m_data->getIDByUsername($username);
+			$paths 		= './assets/img/upload/';
+			$count      = count($this->m_data->countpost($id[0]['id']));
+			$ext 		= pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
+			$new_name 	= $username.'_portofolio_'.$count.'.'.$ext;
+			
+
+			$data['title'] 		= $_POST['title'];
+			$data['url'] 		= base_url('home/post/'.urlencode($data['title']));
+			$data['contents']	= $_POST['content'];
+			$data['img_url']	= $paths.$new_name;
+			$data['user_id']	= $id[0]['id'];
+
+			$config['upload_path'] 		= $paths;
+			$config['allowed_types'] 	= 'jpg|jpeg|png';
+			$config['file_name'] 		= $new_name;
+			$this->upload->initialize($config);
+
+			if(!$this->upload->do_upload('img_url')){
+				$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Portofolio Ditambahkan!</strong></div>');
+				redirect('dashboard/profile');
+				
+			}else{
+
+				$datax = $this->upload->data();
+			    //Compress Image
+			    $config['image_library']='gd2';
+			    $config['source_image']	= $paths.$datax['file_name'];
+			    $config['create_thumb']	= FALSE;
+			    //$config['remove_spaces']= FALSE;
+			    $config['maintain_ratio']= FALSE;
+			    $config['quality']		= '60%';
+			    // $config['width']		= 500;
+			    // $config['height']	= 500;
+			    $config['new_image']	= $paths.$datax['file_name'];
+			    $this->load->library('image_lib', $config);
+
+			    //$this->image_lib->resize();
+			    if (!$this->image_lib->resize()){
+				    echo $this->image_lib->display_errors();
+				}
+				
+				//$this->image_lib->crop();
+			   	if ($this->m_data->save_portofolio($id[0]['id'],$data) === true) {
+			   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Portofolio Ditambahkan!</strong></div>');
+					redirect('dashboard/profile');
+
+			   	}else{
+			   		$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Gagal Tambah Portofolio </strong></div>');
+					redirect('dashboard/profile');
+			   	}
+			}
+		}
 	}
 
 
@@ -152,12 +207,13 @@ class Dashboard extends CI_Controller {
 			$username 	= $this->session->userdata('username');
 			$id 		= $this->m_data->getIDByUsername($username);
 			$oldpath	= $this->m_data->getUserdataByUsername($username);
+
 			if (isset($oldpath[0]['photopath'])) {
 				unlink($oldpath[0]['photopath']);				
 			}
 
-			$path = $_FILES['photopath']['name'];
-			$ext = pathinfo($path, PATHINFO_EXTENSION);
+			$path 	= $_FILES['photopath']['name'];
+			$ext 	= pathinfo($path, PATHINFO_EXTENSION);
 
 
 			$config['upload_path'] 		= './assets/img/upload/';
@@ -184,10 +240,12 @@ class Dashboard extends CI_Controller {
 			    $config['height']		= 500;
 			    $config['new_image']	= './assets/img/upload/'.$datax['file_name'];
 			    $this->load->library('image_lib', $config);
+
 			    //$this->image_lib->resize();
 			    if (!$this->image_lib->crop()){
 				    echo $this->image_lib->display_errors();
 				}
+
 				//$this->image_lib->crop();
 			   	if ($this->m_data->update_data($id[0]['id'],array('photopath'=> $config['new_image']))===true) {
 			   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Foto berhasil diganti!</strong></div>');
