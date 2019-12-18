@@ -64,7 +64,7 @@
                                  <span>
                                     :
                                  </span>
-                                 Panjang : <?= $row['panjang']?>, Lebar : <?= $row['lebar'];?> 
+                                 <?= $row['panjang']?>m x <?= $row['lebar'];?>m
                                  
                               </li>
                               <li class="list-group-item">
@@ -74,7 +74,57 @@
                                  <span>
                                     :
                                  </span>
-                                 <?= $row['lb']?>
+                                 <?= $row['lb']?>m
+                                 
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
+                                    Jumlah Kamar Tidur
+                                 </span>
+                                 <span>
+                                    :
+                                 </span>
+                                 <?= $row['kt']?>
+                                 
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
+                                    Jumlah Kamar Mandi
+                                 </span>
+                                 <span>
+                                    :
+                                 </span>
+                                 <?= $row['km']?>
+                                 
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
+                                    Jumlah Kamar Tamu
+                                 </span>
+                                 <span>
+                                    :
+                                 </span>
+                                 <?= $row['ktm']?>
+                                 
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
+                                    Kapasitas Garasi (Mobil)
+                                 </span>
+                                 <span>
+                                    :
+                                 </span>
+                                 <?= $row['garasi']?>
+                                 
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
+                                    Harga
+                                 </span>
+                                 <span>
+                                    :
+                                 </span>
+                                 <b><?= "Rp " . number_format($row['harga'],2,',','.');?></b>
                                  
                               </li>
                            <?php }?>
