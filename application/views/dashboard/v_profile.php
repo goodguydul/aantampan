@@ -4,7 +4,9 @@
                      <div class="col-lg-12" style="width: 100%;">
                         <div class="col-xs-12 col-sm-4">
                            <figure>
-                           <?php foreach ($userdata as $row) {?>
+                           <?php foreach ($userdata as $row) {
+                              $id = $row['id'];
+                              ?>
 
                               <img class="img-circle img-responsive" alt="" src="<?= ( empty($row['photopath']) || $row['photopath'] === '') ? 'http://placehold.it/300x300' : base_url($row['photopath'])?>">
 
@@ -17,10 +19,11 @@
 
                               <a href="<?=base_url('dashboard/change_password')?>"> 
                                  <button style="margin:10px 10px 10px 0px;width: 100%" class="btn btn-success" type="button"><i class="fa fa-edit"></i> Ubah Password</button>
-                           <?php
+                           
+                              </a>
+                              <?php
                               }
                            ?>
-                              </a>
                            </figure>
                         </div>
                         <div class="col-xs-12 col-sm-8">
@@ -51,7 +54,7 @@
                   <div class="row" style="margin-left: 0px;">
                      <h4 style="margin-right: 10px;">Portofolio</h4>
                      <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') === $uname){?>
-                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPortofolio">Tambah Portofolio</button> 
+                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPortofolio"><i class="fa fa-plus"></i> Tambah Portofolio</button> 
                      <div id="addPortofolio" class="modal fade" role="dialog">
                         <div class="modal-dialog" >
 
@@ -63,8 +66,7 @@
                            </div>
                            <div class="modal-body">
                               <form class="form" action="<?=base_url('dashboard/add_portofolio')?>" method="POST" enctype="multipart/form-data">
-                                 <div class="form-inline">
-                                    <hr>   
+                                 <div class="form-inline"> 
                                     <div class="form-group">
                                        <label style="width: 100px;">Judul :</label>
                                        <input class="form-control" type="text" name="title" required="">
@@ -77,7 +79,7 @@
                                     <hr>
                                     <div class="form-group">
                                        <label style="width: 100px;">Tukang : </label>
-                                       <select class="form-control" name="tukang" required="">
+                                       <select class="form-control" name="related_id" required="">
                                        <option disabled selected></option>
                                           <?php foreach ($listtukang as $row) { ?>
                                           <option value="<?=$row['id']?>"><?=ucwords($row['fname'].' '.$row['lname'])?></option>
@@ -95,28 +97,28 @@
                                     <hr>
                                     <div class="form-group">
                                        <label style="width: 100px;">Luas Bangunan :</label>
-                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="luasbangunan" required="">
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="lb" required="">
                                     </div>
                                     <hr>
                                     <label>Jumlah </label>
                                     <br>
                                     <div class="form-group">
                                        <label style="width: 100px;">Kamar Tidur : </label>
-                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamartidur" required="">
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kt" required="">
                                        <label style="width: 100px;">Kamar Mandi :</label>
-                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamarmandi" required="">  
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="km" required="">  
                                        <label style="width: 100px;">Kamar Tamu :</label>
-                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="kamartidur" required="">
+                                       <input class="form-control" style="max-width: 70px;margin-right: 10px;" type="number" name="ktm" required="">
                                     </div>
                                     <hr>  
                                     <div class="form-group"> 
                                        <label style="width: 140px;">Jumlah Mobil Yang Bisa Ditampung :</label>
-                                       <input class="form-control" style="max-width: 70px;" type="number" name="title" required="">
+                                       <input class="form-control" style="max-width: 70px;" type="number" name="garasi" required="">
                                     </div> 
                                     <hr> 
                                     <div class="form-group">
                                        <label style="width: 140px;">Harga</label>
-                                       Rp. <input class="form-control" style="max-width: 170px;" type="number" name="title" required="">
+                                       Rp. <input class="form-control" style="max-width: 170px;" type="number" name="harga" required="">
                                     </div> 
                                  </div>
                                                   
@@ -131,15 +133,72 @@
 
                         </div>
                      </div>
-                  <?php }?>
+                     <?php }?>
                   </div>   
                   <hr> 
-                  <?php if(!empty($portofolio)){?>
-                     
-                  <?php }else{?> 
-                  <div class="bs-callout bs-callout-danger">
-                     <p><em><small>Belum ada Portofolio</small></em></p>
-                  </div>
+                  <?php if(!empty($portofolio)){ ?>
+                        
+                     <?php foreach ($portofolio as $key) {?>
+                        
+                        <div class="wrap">
+                           <div class="cardx">
+                                <div class="card-liner">
+                                    <figure><img src="<?=base_url($key['img_url'])?>" alt="" /> </figure>
+                                    <div class="card--title">
+                                        <h3><?=$key['title']?></h3>
+                                        <p></p>
+                                    </div>
+                                    <div class="card--btn">
+                                        <a href="<?=$key['url']?>">
+                                            <span class="moreinfo"><i class="fa fa-info-circle"></i> More Info</span>
+                                            <span class="fullprof">Lihat Portofolio</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     <?php }
+
+                     }else{?> 
+                  
+                     <p><em><small>--- Belum ada Portofolio</small></em></p>
+
                   <?php }?> 
-               </div>    
+               </div>
+            <?php if($level === 1 ){?>
+               <div class="bs-callout bs-callout-danger">
+                  <h4 style="margin-right: 10px;">Daftar Janji Temu Yang Telah Dibuat</h4>
+                     
+
+               </div>
+            <?php }elseif($this->session->userdata('username') === $uname){?>
+               <div class="bs-callout bs-callout-danger">
+                  <h4 style="margin-right: 10px;">Daftar Janji Temu</h4>
+                         
+                     <form id="checkjadwal"  method="POST">
+                        <div class="form-inline">
+                            <label>Cari Tanggal : </label>                    
+                            <input class="form-control" type="date" name="checkdate" required="" style="max-width: 200px" min="<?=date('Y-m-d')?>" value="<?=date('Y-m-d')?>" >
+                            <input type="text" name="id" value="<?=$id?>" hidden>
+
+                            <button class="btn btn-md btn-success" type="submit">Cek Tanggal</button>
+                        </div>
+                        <hr>
+                        <div style="max-height: 300px">
+                           <table  class="table table-hover">
+                              <thead>
+                                   <tr>
+                                       <th>Jam</th>
+                                       <th>Pelanggan</th>
+                                   </tr>
+                               </thead>
+                               <tbody id="listjadwal">
+                                   
+                               </tbody>
+                           </table>
+                        </div>
+                        
+                    </form>
+               </div>  
+            <?php }?> 
          </div>

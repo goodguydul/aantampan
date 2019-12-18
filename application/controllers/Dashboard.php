@@ -41,6 +41,8 @@ class Dashboard extends CI_Controller {
 		$data['listtukang'] = $this->m_data->getListTukang();
 		$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
 
+		$data['level']		= $data['userdata'][0]['level'];
+
 		if (!$this->session->userdata('username') == '') {
 			$this->load->view('dashboard/v_header',$data);
 			$this->load->view('home/v_navbar',$data);	
@@ -148,13 +150,11 @@ class Dashboard extends CI_Controller {
 			$count      = count($this->m_data->countpost($id[0]['id']));
 			$ext 		= pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
 			$new_name 	= $username.'_portofolio_'.$count.'.'.$ext;
-			
+			$url 		= str_replace('+', '-', urlencode($_POST['title'])).'-'.$id[0]['id'];
 
-			$data['title'] 		= $_POST['title'];
-			$data['url'] 		= base_url('home/post/'.urlencode($data['title']));
-			$data['contents']	= $_POST['content'];
-			$data['img_url']	= $paths.$new_name;
-			$data['user_id']	= $id[0]['id'];
+			$_POST['url'] 		= base_url('home/post/'.strtr(base64_encode($url), '+/=', '._-')); 
+			$_POST['img_url']	= $paths.$new_name;
+			$_POST['user_id']	= $id[0]['id'];
 
 			$config['upload_path'] 		= $paths;
 			$config['allowed_types'] 	= 'jpg|jpeg|png';
@@ -186,7 +186,7 @@ class Dashboard extends CI_Controller {
 				}
 				
 				//$this->image_lib->crop();
-			   	if ($this->m_data->save_portofolio($id[0]['id'],$data) === true) {
+			   	if ($this->m_data->save_portofolio($id[0]['id'],$_POST) === true) {
 			   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Portofolio Ditambahkan!</strong></div>');
 					redirect('dashboard/profile');
 
@@ -198,6 +198,28 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function checkjadwal(){
+		if (isset($_POST) && !empty($_POST)) {
+
+			$data = $this->m_data->checkJadwal($_POST['id'], $_POST['checkdate']);
+			
+
+
+			print_r($data);
+			//foreach ($status as $key) {
+
+				// echo "<tr>";
+				// echo "<td>";
+				// echo $key['jam'];
+				// echo "</td>";
+				// echo "<td>";
+				// echo $key['status'];
+				// echo "</td>";
+				// echo "</tr>";
+			//}
+
+		}	
+	}
 
 	public function upload_photo(){
 

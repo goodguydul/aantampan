@@ -25,6 +25,11 @@ class Home extends CI_Controller {
 			$data['pagetitle']	= 'Griya Bangun Asri - Profile ' . ucwords($username);
 			$data['uname']		= $username;
 			$data['userdata']	= $this->m_data->getUserdataByUsername($username);
+			$data['level']		= $data['userdata'][0]['level'];
+			$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
+
+			$data['level']		= $data['userdata'][0]['level'];
+			
 			if (!empty($data['userdata'])) {
 				
 				$this->load->view('home/v_header',$data);
@@ -185,13 +190,47 @@ class Home extends CI_Controller {
 		}	
 	}
 
-	public function post($title){
+	public function post($title=null){
 
-		$title		= str_replace('-', ' ', $title);
-		$id 		= $this->getUserData('portofolio','id = '.$id); 
+		if (isset($title) && !is_null($title)) {
 
-		//$contents 	= $this->getUserData('portofolio','id = '.$id); 
+			$title 				= base64_decode(strtr($title, '._-', '+/='));
+
+			$temp				= explode('-', urldecode($title));
+			$id 				= end($temp);
+			
+			unset($temp[(count($temp)-1)]);
+			$title 				= implode(' ', $temp);
 
 
+			$title				= urldecode(str_replace('-', ' ', $title));
+			$data['contents'] 	= $this->m_data->getPortofolioData($id); 
+			$data['contents'][0]['namaarsitek']	= $data['contents'][0]['fname'] .' '. $data['contents'][0]['lname'];
+
+			$temp 				= $this->m_data->getUsernameByID($data['contents'][0]['related_id']); 
+			$data['contents'][0]['namatukang']	= $temp[0]['fname']. ' ' .$temp[0]['lname'];
+			
+			$data['contents'][0]['arsitek']		= $data['contents'][0]['username'];
+
+			$data['contents'][0]['tukang']		= $temp[0]['username'];
+
+
+
+			//print_r( $this->m_data->getPortofolioData($id));
+			$username1 			= $data['contents'][0]['username'];
+			$username2 			= $temp[0]['username'];
+			$data['uname1']		= $username1;
+			$data['uname2']		= $username2;
+			$data['pagetitle']	= 'Griya Bangun Asri - '. ucwords($title);
+
+			$this->load->view('home/v_header',$data);
+			$this->load->view('home/v_navbar',$data);	
+			$this->load->view('home/v_portofolio',$data);
+			$this->load->view('home/v_footer',$data);
+			
+		}else{
+
+			redirect('404');
+		}
 	}
 }
