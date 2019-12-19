@@ -31,7 +31,7 @@
                                  <span class="col-xs-6">
                                     ID Desain
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  
@@ -39,9 +39,19 @@
                               </li>
                               <li class="list-group-item">
                                  <span class="col-xs-6">
+                                    Judul
+                                 </span>
+                                 <span style="margin-right: 5px">
+                                    :
+                                 </span>
+                                 
+                                 <?= $row['title']?>
+                              </li>
+                              <li class="list-group-item">
+                                 <span class="col-xs-6">
                                     Arsitek/ Designer
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <a href="<?=base_url('home/profile/'.$row['arsitek'])?>"><?= ucwords($row['namaarsitek']);?></a> 
@@ -51,7 +61,7 @@
                                  <span class="col-xs-6">
                                     Tukang Bangunan
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <a href="<?=base_url('home/profile/'.$row['tukang'])?>"><?= ucwords($row['namatukang']);?></a> 
@@ -61,7 +71,7 @@
                                  <span class="col-xs-6">
                                     Ukuran Tanah
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['panjang']?>m x <?= $row['lebar'];?>m
@@ -71,7 +81,7 @@
                                  <span class="col-xs-6">
                                     Luas Bangunan
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['lb']?>m
@@ -81,7 +91,7 @@
                                  <span class="col-xs-6">
                                     Jumlah Kamar Tidur
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['kt']?>
@@ -91,7 +101,7 @@
                                  <span class="col-xs-6">
                                     Jumlah Kamar Mandi
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['km']?>
@@ -101,17 +111,17 @@
                                  <span class="col-xs-6">
                                     Jumlah Kamar Tamu
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['ktm']?>
                                  
                               </li>
                               <li class="list-group-item">
-                                 <span class="col-xs-6">
+                                 <span class="col-xs-6" style="font-size: 12px;">
                                     Kapasitas Garasi (Mobil)
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <?= $row['garasi']?>
@@ -121,7 +131,7 @@
                                  <span class="col-xs-6">
                                     Harga
                                  </span>
-                                 <span>
+                                 <span style="margin-right: 5px">
                                     :
                                  </span>
                                  <b><?= "Rp " . number_format($row['harga'],2,',','.');?></b>

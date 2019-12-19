@@ -646,3 +646,7 @@ a:hover{
 .card--btn a .moreinfo i {
   margin-right: 5px;
 }
+
+.list-group a:hover{
+  color: grey;
+}
