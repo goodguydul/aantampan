@@ -27,7 +27,6 @@ class Home extends CI_Controller {
 			$data['userdata']	= $this->m_data->getUserdataByUsername($username);
 			$data['level']		= $data['userdata'][0]['level'];
 			$data['listtukang'] = $this->m_data->getListTukang();
-
 			$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
 
 			$data['level']		= $data['userdata'][0]['level'];
@@ -210,7 +209,7 @@ class Home extends CI_Controller {
 			if (empty($data['contents'])) {
 				redirect('home');	
 			}
-			
+
 			$data['contents'][0]['namaarsitek']	= $data['contents'][0]['fname'] .' '. $data['contents'][0]['lname'];
 			$temp 								= $this->m_data->getUsernameByID($data['contents'][0]['related_id']); 
 			$data['contents'][0]['namatukang']	= $temp[0]['fname']. ' ' .$temp[0]['lname'];		
@@ -235,24 +234,38 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function beli($id){
+	public function beli($id=null){
 		if (!$this->session->userdata('username') == '') {
 			if (isset($id) && !is_null($id)) {
-				$data['id']			= $id;
-				$username 			= $this->session->userdata('username');
-				$data['orderid']	= $this->m_data->countInvoice();
-				$data['contents'] 	= $this->m_data->getPostContent($id);
-				$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
-				$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
 
-				if (empty($data['contents'])) {
-					redirect('home');	
+				if (isset($_POST) && !empty($_POST)) {
+					
+					if ($this->m_data->save_data($_POST,'invoice')) {
+						$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Pembelian Berhasil! Silahkan melakukan Konfirmasi Pembayaran !</strong></div>');
+						redirect('dashboard/profile');
+					}else{
+						$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Pembelian Gagal! Silahkan Hubungi Admin !</strong></div>');
+						redirect('home/beli/'.$id);
+					}
+
+				}else{
+					$data['id']			= $id;
+					$username 			= $this->session->userdata('username');
+					$data['orderid']	= $this->m_data->countInvoice();
+					$data['contents'] 	= $this->m_data->getPostContent($id);
+					$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
+					$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
+
+					if (empty($data['contents'])) {
+						redirect('home');	
+					}
+
+					$this->load->view('home/v_header',$data);
+					$this->load->view('home/v_navbar',$data);	
+					$this->load->view('home/v_beli',$data);
+					$this->load->view('home/v_footer',$data);
 				}
-
-				$this->load->view('home/v_header',$data);
-				$this->load->view('home/v_navbar',$data);	
-				$this->load->view('home/v_beli',$data);
-				$this->load->view('home/v_footer',$data);
+			
 			}else{
 				redirect('404');
 			}
@@ -260,5 +273,13 @@ class Home extends CI_Controller {
 			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
 			redirect('login');
 		}
+	}
+
+	public function konfirmasi($invoice=null){
+
+		if (isset($invoice) && !empty($invoice) && $invoice != null) {
+			# code...
+		}
+
 	}
 }

@@ -204,8 +204,33 @@
                </div>
                <div class="bs-callout bs-callout-danger">
                   <h4 style="margin-right: 10px;">Invoices</h4>
-                  <hr>   
+                  <hr>
 
+                  <?php foreach ($invoices as $row) { ?>
+
+                    <table class="table table-hover">
+                      <thead>
+                        <th class="text-center">No. Invoice</th>
+                        <th class="text-center">Tanggal Order</th>
+                        <th class="text-center">No. Produk</th>
+                        <th class="text-center">Nama Produk</th>
+                        <th class="text-center">Harga</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                      </thead>
+                      <tbody>
+                        <tr class="text-center">
+                          <td><?=$row['no_invoice']?></td>
+                          <td><?=date('D, d M Y',strtotime($row['invoicedate']))?></td>
+                          <td><?=$row['id_post']?></td>
+                          <td><?=$row['title']?></td>
+                          <td><?= "Rp " . number_format($row['harga'],2,',','.');?></td>
+                          <td><?=($row['status'] == 0 )? '<span style="color:red">Menunggu</span>' : (($row['status'] == 1)? '<span style="color:green">Lunas</span>' : '') ?></td>
+                          <td><?=($row['status'] == 0 )? '<a class="btn btn-warning btn-sm" href="'.base_url('home/konfirmasi/'.$row['no_invoice']).'">Bayar</a>' : (($row['status'] == 1)? '' : '') ?></td>
+                        </tr>
+                      </tbody>
+                    </table>      
+                  <?php } ?>
                </div>
             <?php }?> 
-         </div>
+          </div>

@@ -8,7 +8,7 @@
             <div class="col-md-6 col-xs-12">
                     <h4>Order ID: <?=$orderid;?></h4>
                     <?php foreach ($userdata as $row) {?>
-                        <input type="text" name="user_id" value="<?=$row['id']?>" hidden>
+                        <input type="text" name="id_user" value="<?=$row['id']?>" hidden>
                         <table class="table table-hover">
 
                             <tr>
@@ -55,10 +55,16 @@
                     <h4>Penerima</h4>
                     <?php foreach ($contents as $row) {?>
 
-                        <input type="text" name="sianu_id" value="<?=$row['id_port']?>" hidden>
+                        <input type="text" name="invoicedate" value="<?=date('Y-m-d')?>" hidden>
+                        <input type="text" name="id_post" value="<?=$row['id_port']?>" hidden>
+                        <input type="text" name="id_sianu" value="<?=$row['id']?>" hidden>
+                        <input type="text" name="harga" value="<?=$row['harga']?>" hidden>
+                        <input type="text" name="no_invoice" value="<?=date('Ymd').$row['id_port'].$orderid;?>" hidden>
+                        <input type="text" name="status" value="0" hidden>
+
                         <table class="table table-hover">
                             <tr>
-                                <td> <i class="fa fa-book"></i> ID Desain :
+                                <td><i class="fa fa-book"></i> ID Desain :
                                 </td>
                                 <td>:</td>
                                 <td>
@@ -68,7 +74,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td> <i class="fa fa-user"></i> Arsitek/Desainer </td>
+                                <td><i class="fa fa-user"></i> Arsitek/Desainer </td>
                                 <td>:</td>
                                 <td>
                                     <p>
@@ -77,17 +83,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td> </td>
+                                <td></td>
                                 <td>&nbsp;</td>
                                 <td>
                                     
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>&nbsp;</td>
+                                <td><i class="fa fa-money"></i>  Harga</td>
+                                <td>:</td>
                                 <td>
-                                   
+                                   <p><?= "Rp " . number_format($row['harga'],2,',','.');?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -95,7 +101,7 @@
                                 </td>
                                 <td></td>
                                 <td class="text-right">
-                                    <button class="btn btn-md btn-danger" type="reset" style="width:100px">Batal</button>
+                                    <button class="btn btn-md btn-danger" onclick="history.back()" type="button" style="width:100px">Batal</button>
 
                                     <button class="btn btn-md btn-success" type="submit" style="width:100px">Beli</button>
                                 </td>

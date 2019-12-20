@@ -30,8 +30,9 @@ class M_data extends CI_Model{
         return $query->result_array();
     }
 
-    function save_data($data){
-        $this->db->insert('user', $data); 
+    function save_data($data,$table){
+        $this->db->insert($table, $data);
+        return ($this->db->affected_rows() > 0) ? true : false;
     }
 
     function update_data($id,$data){
@@ -112,11 +113,14 @@ class M_data extends CI_Model{
         }
     }
 
-    function getUserData($table,$where){
+    function getUserData($table,$where,$jointable=null,$join=null,$joinmethod=null){
 
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where($where);
+        if (!is_null($jointable)&&!is_null($join)&&!is_null($joinmethod)) {
+            $this->db->join($jointable,$join,$joinmethod);
+        }
         $query  =   $this->db->get();
         return $query->result_array();
     }
