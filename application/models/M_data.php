@@ -155,11 +155,12 @@ class M_data extends CI_Model{
         return $query->result_array();
     }
     
-    function getPortofolioData($id){
+    function getPortofolioData($id,$title){
 
         $this->db->select('*');
         $this->db->from('portofolio');
         $this->db->where('portofolio.user_id',$id);
+        $this->db->where('portofolio.title',$title);
         $this->db->join('user','user.id = portofolio.user_id');
         //$this->db->join('user','user.id = portofolio.related_id','left');
         $query  =   $this->db->get();

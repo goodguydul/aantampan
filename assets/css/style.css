@@ -534,7 +534,7 @@ a:hover{
 
 .wrap {
   max-width: 20em;
-
+  display: inline-block;
 }
 
 .cardx {
@@ -563,7 +563,7 @@ a:hover{
 }
 .cardx figure {
   position: relative;
-  z-index: 299;
+  /*z-index: 299;*/
   width: 15em;
   height: 15em;
   margin: 0 auto 1em;
