@@ -653,3 +653,19 @@ a:hover{
 .table  a:hover{
   color: gray;
 }
+.footer {
+  border-top: 4px solid #ccc;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: gray;
+  color: #ccc;
+  text-align: center;
+  height: 50px;
+  padding: 12px;
+}
+.container{
+  margin-bottom: 100px;
+  margin-top: 50px;
+}

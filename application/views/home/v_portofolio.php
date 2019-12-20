@@ -9,7 +9,7 @@
                               <img class="img img-responsive" alt="" src="<?= ( empty($row['img_url']) || $row['img_url'] === '') ? 'http://placehold.it/300x300' : base_url($row['img_url']);?>">
 
                            <?php 
-                              if(empty($this->session->userdata('username')) || $this->session->userdata('username') !== $uname1 && $this->session->userdata('username') !== $uname2){
+                              if(empty($this->session->userdata('username')) || $level == 1){
                            ?>
                               <a href="<?=base_url('home/beli/'.$row['id_port'])?>"> 
                                  <button style="margin:10px 10px 10px 0px;width: 100%" class="btn btn-success" type="button"><i class="fa fa-edit"></i> Beli</button>
@@ -19,9 +19,7 @@
                                  <button style="margin:10px 10px 10px 0px;width: 100%" class="btn btn-warning" type="button"><i class="fa fa-edit"></i> Bangun Rumah</button>
                           
                               </a>
-                               <?php
-                              }
-                           ?>
+                           <?php } ?>
                            </figure>
                         </div>
                         <div class="col-xs-12 col-sm-8">

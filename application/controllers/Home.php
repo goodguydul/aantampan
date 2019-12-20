@@ -195,7 +195,7 @@ class Home extends CI_Controller {
 		if (isset($title) && !is_null($title)) {
 
 			$title 				= base64_decode(strtr($title, '._-', '+/='));
-
+			$user 				= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
 			$temp				= explode('-', urldecode($title));
 			$id 				= end($temp);
 			
@@ -211,12 +211,9 @@ class Home extends CI_Controller {
 			}
 
 			$data['contents'][0]['namaarsitek']	= $data['contents'][0]['fname'] .' '. $data['contents'][0]['lname'];
-
-			$temp 				= $this->m_data->getUsernameByID($data['contents'][0]['related_id']); 
-			$data['contents'][0]['namatukang']	= $temp[0]['fname']. ' ' .$temp[0]['lname'];
-			
+			$temp 								= $this->m_data->getUsernameByID($data['contents'][0]['related_id']); 
+			$data['contents'][0]['namatukang']	= $temp[0]['fname']. ' ' .$temp[0]['lname'];		
 			$data['contents'][0]['arsitek']		= $data['contents'][0]['username'];
-
 			$data['contents'][0]['tukang']		= $temp[0]['username'];
 
 			
@@ -227,7 +224,8 @@ class Home extends CI_Controller {
 			$data['uname1']		= $username1;
 			$data['uname2']		= $username2;
 			$data['pagetitle']	= 'Griya Bangun Asri - '. ucwords($title);
-
+			$data['level']		= $user[0]['level'];
+			
 			$this->load->view('home/v_header',$data);
 			$this->load->view('home/v_navbar',$data);	
 			$this->load->view('home/v_portofolio',$data);

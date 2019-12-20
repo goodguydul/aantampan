@@ -1,4 +1,4 @@
-<div class="container" style="margin-top:50px">
+<div class="container">
     <div class="row form-janjitemu">
         <form action="<?=base_url('home/make_appointment/'.$uname)?>" method="POST">
             <h3 class="text-center">Buat Janji Temu</h3>
