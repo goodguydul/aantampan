@@ -90,7 +90,7 @@ class Dashboard extends CI_Controller {
 				redirect('dashboard/profile');
 			}else{
 				$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Profile gagal Diperbaharui! Harap hubungi administrator.</strong></div>');
-			redirect('dashboard/edit_profile');
+				redirect('dashboard/edit_profile');
 			}
 		}else{
 			
@@ -242,6 +242,7 @@ class Dashboard extends CI_Controller {
 			$config['allowed_types'] 	= 'jpg|jpeg|png';
 			$new_name 					= $username.'.'.$ext;
 			$config['file_name'] 		= $new_name;
+			
 			$this->upload->initialize($config);
 
 			if(!$this->upload->do_upload('photopath')){
@@ -252,24 +253,35 @@ class Dashboard extends CI_Controller {
 
 				$datax = $this->upload->data();
 			    //Compress Image
-			    $config['image_library']='gd2';
-			    $config['source_image']	='./assets/img/upload/'.$datax['file_name'];
-			    $config['create_thumb']	= FALSE;
+
+			    $this->load->library('image_lib');
+
+			    $config['image_library']	='gd2';
+			    $config['source_image']		='./assets/img/upload/'.$datax['file_name'];
+			   // $config['create_thumb']		= FALSE;
+			    $config['maintain_ratio']	= FALSE;
+
 			    //$config['remove_spaces']= FALSE;
-			    $config['maintain_ratio']= FALSE;
-			    $config['quality']		= '60%';
-			    $config['width']		= 500;
-			    $config['height']		= 500;
-			    $config['new_image']	= './assets/img/upload/'.$datax['file_name'];
-			    $this->load->library('image_lib', $config);
+			    $temp						= $this->image_lib->get_image_properties($config['source_image'], TRUE);
+			    $imageSize['width'] 		= $temp['width'];
+			    $imageSize['height'] 		= $temp['height'];
 
-			    //$this->image_lib->resize();
-			    if (!$this->image_lib->crop()){
-				    echo $this->image_lib->display_errors();
-				}
+        		$newSize 					= min($imageSize);
+			    //$config['quality']			= '60%';
+			    $config['width'] 			= $newSize;
+		        $config['height'] 			= $newSize;
+		        $config['y_axis'] 			= ($imageSize['height'] - $newSize) / 2;
+		        $config['x_axis'] 			= ($imageSize['width'] - $newSize) / 2;
+			    
+			    $config['new_image']		= './assets/img/upload/'.$datax['file_name'];
 
-				//$this->image_lib->crop();
-			   	if ($this->m_data->update_data($id[0]['id'],array('photopath'=> $config['new_image']))===true) {
+			    $this->image_lib->initialize($config);
+
+			     if(!$this->image_lib->crop()){
+		            echo $this->image_lib->display_errors();
+		        }
+
+			   	if ($this->m_data->update_data($id[0]['id'],array('photopath'=> $config['new_image']))==true) {
 			   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Foto berhasil diganti!</strong></div>');
 					redirect('dashboard/profile');
 

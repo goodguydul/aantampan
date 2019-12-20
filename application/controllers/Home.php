@@ -29,7 +29,7 @@ class Home extends CI_Controller {
 			$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
 
 			$data['level']		= $data['userdata'][0]['level'];
-			
+
 			if (!empty($data['userdata'])) {
 				
 				$this->load->view('home/v_header',$data);
@@ -204,7 +204,12 @@ class Home extends CI_Controller {
 
 
 			$title				= urldecode(str_replace('-', ' ', $title));
-			$data['contents'] 	= $this->m_data->getPortofolioData($id); 
+			$data['contents'] 	= $this->m_data->getPortofolioData($id);
+
+			if (empty($data['contents'])) {
+				redirect('home');	
+			}
+
 			$data['contents'][0]['namaarsitek']	= $data['contents'][0]['fname'] .' '. $data['contents'][0]['lname'];
 
 			$temp 				= $this->m_data->getUsernameByID($data['contents'][0]['related_id']); 
@@ -214,7 +219,7 @@ class Home extends CI_Controller {
 
 			$data['contents'][0]['tukang']		= $temp[0]['username'];
 
-
+			
 
 			//print_r( $this->m_data->getPortofolioData($id));
 			$username1 			= $data['contents'][0]['username'];
@@ -231,6 +236,33 @@ class Home extends CI_Controller {
 		}else{
 
 			redirect('404');
+		}
+	}
+
+	public function beli($id){
+		if (!$this->session->userdata('username') == '') {
+			if (isset($id) && !is_null($id)) {
+				$data['id']			= $id;
+				$username 			= $this->session->userdata('username');
+				$data['orderid']	= $this->m_data->countInvoice();
+				$data['contents'] 	= $this->m_data->getPostContent($id);
+				$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
+				$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
+
+				if (empty($data['contents'])) {
+					redirect('home');	
+				}
+
+				$this->load->view('home/v_header',$data);
+				$this->load->view('home/v_navbar',$data);	
+				$this->load->view('home/v_beli',$data);
+				$this->load->view('home/v_footer',$data);
+			}else{
+				redirect('404');
+			}
+		}else{
+			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
+			redirect('login');
 		}
 	}
 }

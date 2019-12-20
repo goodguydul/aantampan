@@ -154,6 +154,7 @@ class M_data extends CI_Model{
         $query  =   $this->db->get();
         return $query->result_array();
     }
+    
     function getPortofolioData($id){
 
         $this->db->select('*');
@@ -164,5 +165,23 @@ class M_data extends CI_Model{
         $query  =   $this->db->get();
         return $query->result_array();
 
+    }
+
+    function getPostContent($id){
+
+        $this->db->select(' *');
+        $this->db->from('portofolio');
+        $this->db->where('portofolio.id_port',$id);
+        $this->db->join('user','user.id = portofolio.user_id','cross');
+        //$this->db->join('user','user.id = portofolio.related_id','left');
+        $query  =   $this->db->get();
+        return $query->result_array();
+    }
+
+    function countInvoice(){
+        $this->db->select('*');
+        $this->db->from('invoice');
+        $query      = $this->db->get();
+        return count($query->result_array());
     }
 }

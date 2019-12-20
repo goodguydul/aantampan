@@ -11,7 +11,7 @@
                            <?php 
                               if(empty($this->session->userdata('username')) || $this->session->userdata('username') !== $uname1 && $this->session->userdata('username') !== $uname2){
                            ?>
-                              <a href="<?=base_url('home/beli/'.$row['id'])?>"> 
+                              <a href="<?=base_url('home/beli/'.$row['id_port'])?>"> 
                                  <button style="margin:10px 10px 10px 0px;width: 100%" class="btn btn-success" type="button"><i class="fa fa-edit"></i> Beli</button>
                               </a>
 

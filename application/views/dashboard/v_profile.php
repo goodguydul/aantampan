@@ -50,10 +50,11 @@
                </div>  
             </div>
             <hr>
+            <?php if($level != 1 ){?>
                <div class="bs-callout bs-callout-danger">
                   <div class="row" style="margin-left: 0px;">
                      <h4 style="margin-right: 10px;">Portofolio</h4>
-                     <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') === $uname){?>
+                     <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') === $uname ){?>
                      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPortofolio"><i class="fa fa-plus"></i> Tambah Portofolio</button> 
                      <div id="addPortofolio" class="modal fade" role="dialog">
                         <div class="modal-dialog" >
@@ -165,13 +166,8 @@
 
                   <?php }?> 
                </div>
-            <?php if($level === 1 ){?>
-               <div class="bs-callout bs-callout-danger">
-                  <h4 style="margin-right: 10px;">Daftar Janji Temu Yang Telah Dibuat</h4>
-                     
-
-               </div>
-            <?php }elseif($this->session->userdata('username') === $uname){?>
+               <?php?>
+            <?php }elseif($this->session->userdata('username') === $uname && $level != 1 ){?>
                <div class="bs-callout bs-callout-danger">
                   <h4 style="margin-right: 10px;">Daftar Janji Temu</h4>
                          
@@ -200,5 +196,16 @@
                         
                     </form>
                </div>  
+            <?php }else{?>
+               <div class="bs-callout bs-callout-danger">
+                  <h4 style="margin-right: 10px;">Daftar Janji Temu Yang Telah Dibuat</h4>
+                  <hr>
+
+               </div>
+               <div class="bs-callout bs-callout-danger">
+                  <h4 style="margin-right: 10px;">Invoices</h4>
+                  <hr>   
+
+               </div>
             <?php }?> 
          </div>

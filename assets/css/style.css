@@ -648,5 +648,8 @@ a:hover{
 }
 
 .list-group a:hover{
-  color: grey;
+  color: gray;
+}
+.table  a:hover{
+  color: gray;
 }
