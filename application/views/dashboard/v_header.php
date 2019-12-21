@@ -11,6 +11,9 @@
 	<?=link_tag(base_url('assets/css/bootstrap.min.css'))?>
 	<?=link_tag(base_url('assets/css/font-awesome.min.css'))?>
 
+	<!--==========Theme Styles==========-->
+	<?=link_tag(base_url('assets/css/style.css'))?>
+	
 	<script src="<?=base_url('assets/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/js/bootstrap.js')?>"></script>
 
@@ -19,8 +22,6 @@
 	
 	
 
-	<!--==========Theme Styles==========-->
-	<?=link_tag(base_url('assets/css/style.css'))?>
 
 
 	<!--========== HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries ==========-->

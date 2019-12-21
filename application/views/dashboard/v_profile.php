@@ -197,40 +197,87 @@
                     </form>
                </div>  
             <?php }else{?>
-               <div class="bs-callout bs-callout-danger">
-                  <h4 style="margin-right: 10px;">Daftar Janji Temu Yang Telah Dibuat</h4>
-                  <hr>
 
-               </div>
-               <div class="bs-callout bs-callout-danger">
-                  <h4 style="margin-right: 10px;">Invoices</h4>
-                  <hr>
+              <div class="tab bs-callout bs-callout-danger" style="padding: 0px">
+                <button class="tablinks" onclick="openMenu(event, 'Appointment')">Daftar Janji Temu</button>
+                <button class="tablinks" onclick="openMenu(event, 'Invoice')">Daftar Invoice</button>
+              </div>
+              <div id="Appointment" class="tabcontent bs-callout bs-callout-danger">
+                <h4 style="margin-right: 10px;">Daftar Janji Temu Yang Telah Dibuat</h4>
+                <hr>
+                <table class="table table-hover">
+                  <thead>
+                    <th class="text-center">No.</th>
+                    <th class="text-center">Tanggal</th>
+                    <th class="text-center">Jam</th>
+                    <th class="text-center">Tempat</th>
+                    <th class="text-center">Arsitek/Tukang</th>
+                    <th class="text-center">Aksi</th>
 
-                  <?php foreach ($invoices as $row) { ?>
+                  </thead>
+                  <tbody>
+                <?php 
+                if (empty($listjadwal)) {?>
+                    <tr class="text-center">
+                      <td colspan="6"> <em>Belum ada Janji Temu</em></td>
+                    </tr>    
+                <?php 
+                }else{
+                  $i = 1;
+                  foreach ($listjadwal as $row) { ?>
+                    <tr class="text-center">
+                      <td><?=$i?></td>
+                      <td><?=date('D, d M Y',strtotime($row['tanggal']))?></td>
+                      <td><?=date('h:i',strtotime($row['waktu']))?></td>
+                      <td><?=$row['tempat']?></td>
+                      <td><?= ucwords($row['fname'] .' '. $row['lname']);?></td>
+                      <td><a href="<?=base_url('home/cancel_appointment/'.$row['id_janji'])?>"><button class="btn btn-danger btn-sm">Batalkan</button></a></td>
+                    </tr>      
+                <?php $i++; }
+                } 
+                ?>
+                  </tbody>
+                </table> 
+              </div>
+              <div id="Invoice" class="tabcontent bs-callout bs-callout-danger">
+                <h4 style="margin-right: 10px;">Invoices</h4>
+                <hr>
+                <table class="table table-hover">
+                  <thead>
+                    <th class="text-center">No. Invoice</th>
+                    <th class="text-center">Tanggal Order</th>
+                    <th class="text-center">No. Produk</th>
+                    <th class="text-center">Nama Produk</th>
+                    <th class="text-center">Harga</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Aksi</th>
+                  </thead>
+                  <tbody> 
+                <?php 
+                if (empty($invoices)) {?>
+                    <tr class="text-center">
+                      <td colspan="6"> <em>Belum ada Invoice</em></td>
+                          
+                    </tr>    
+                <?php 
+                }else{
+                  foreach ($invoices as $row) { ?>
+                    <tr class="text-center">
+                      <td><?=$row['no_invoice']?></td>
+                      <td><?=date('D, d M Y',strtotime($row['invoicedate']))?></td>
+                      <td><?=$row['id_post']?></td>
+                      <td><?=$row['title']?></td>
+                      <td><?= "Rp " . number_format($row['harga'],2,',','.');?></td>
+                      <td><?=($row['status'] == 0 )? '<span style="color:red">Menunggu</span>' : (($row['status'] == 1)? '<span style="color:green">Lunas</span>' : '') ?></td>
+                      <td><?=($row['status'] == 0 )? '<a href="'.base_url('home/konfirmasi/'.$row['no_invoice']).'"><button class="btn btn-warning btn-sm" type="button">Bayar</button></a>' : (($row['status'] == 1)? '' : '') ?></td>
+                    </tr>      
+                <?php 
+                  }
+                } 
+                ?>
+                  </tbody>
+                </table> 
+              </div>
 
-                    <table class="table table-hover">
-                      <thead>
-                        <th class="text-center">No. Invoice</th>
-                        <th class="text-center">Tanggal Order</th>
-                        <th class="text-center">No. Produk</th>
-                        <th class="text-center">Nama Produk</th>
-                        <th class="text-center">Harga</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Aksi</th>
-                      </thead>
-                      <tbody>
-                        <tr class="text-center">
-                          <td><?=$row['no_invoice']?></td>
-                          <td><?=date('D, d M Y',strtotime($row['invoicedate']))?></td>
-                          <td><?=$row['id_post']?></td>
-                          <td><?=$row['title']?></td>
-                          <td><?= "Rp " . number_format($row['harga'],2,',','.');?></td>
-                          <td><?=($row['status'] == 0 )? '<span style="color:red">Menunggu</span>' : (($row['status'] == 1)? '<span style="color:green">Lunas</span>' : '') ?></td>
-                          <td><?=($row['status'] == 0 )? '<a class="btn btn-warning btn-sm" href="'.base_url('home/konfirmasi/'.$row['no_invoice']).'">Bayar</a>' : (($row['status'] == 1)? '' : '') ?></td>
-                        </tr>
-                      </tbody>
-                    </table>      
-                  <?php } ?>
-               </div>
             <?php }?> 
           </div>

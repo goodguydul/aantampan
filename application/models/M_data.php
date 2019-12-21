@@ -119,7 +119,13 @@ class M_data extends CI_Model{
         $this->db->from($table);
         $this->db->where($where);
         if (!is_null($jointable)&&!is_null($join)&&!is_null($joinmethod)) {
-            $this->db->join($jointable,$join,$joinmethod);
+            if (is_array($jointable) && is_array($join) && is_array($joinmethod)) {
+                for ($i=0; $i < count($jointable) ; $i++) { 
+                    $this->db->join($jointable[$i],$join[$i],$joinmethod[$i]);
+                }
+            }else{
+                $this->db->join($jointable,$join,$joinmethod);
+            }
         }
         $query  =   $this->db->get();
         return $query->result_array();

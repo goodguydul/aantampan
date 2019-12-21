@@ -40,6 +40,12 @@ class Dashboard extends CI_Controller {
 		$data['userdata']	= $this->m_data->getUserdataByUsername($username);
 		$data['listtukang'] = $this->m_data->getListTukang();
 		$data['invoices'] 	= $this->m_data->getUserData('invoice','invoice.id_user = '.$data['userdata'][0]['id'],'portofolio','invoice.id_post = portofolio.id_port','left');
+		$data['listjadwal']	= $this->m_data->getUserData('janjitemu','janjitemu.user_id = '.$data['userdata'][0]['id'],
+														['user'],
+														['janjitemu.sianu_id = user.id'],
+														['left']
+													);
+
 		$data['portofolio'] = $this->m_data->getUserData('portofolio','user_id = '.$data['userdata'][0]['id']);
 
 		$data['level']		= $data['userdata'][0]['level'];

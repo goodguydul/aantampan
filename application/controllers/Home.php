@@ -257,7 +257,8 @@ class Home extends CI_Controller {
 					$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
 
 					if (empty($data['contents'])) {
-						redirect('home');	
+						$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>ID Desain tidak ditemukan!</strong></div>');
+						redirect('dashboard/profile');	
 					}
 
 					$this->load->view('home/v_header',$data);
@@ -278,7 +279,9 @@ class Home extends CI_Controller {
 	public function konfirmasi($invoice=null){
 
 		if (isset($invoice) && !empty($invoice) && $invoice != null) {
-			# code...
+			
+		}else{
+			redirect('home');
 		}
 
 	}
