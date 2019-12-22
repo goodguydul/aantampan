@@ -114,7 +114,7 @@ class Home extends CI_Controller {
 							$this->load->view('home/v_footer',$data);
 						}else{
 
-							redirect('home/dashboard/'.$username);
+							redirect('home/profile/'.$username);
 						}	
 					
 					}else{
