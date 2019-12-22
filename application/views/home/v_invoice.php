@@ -1,17 +1,16 @@
 <div class="container" style="margin-top:50px">
     <div class="row form-janjitemu">
-        <form action="<?=base_url('home/konfirmasi/'.$noinvoice)?>" method="POST">
-            <h3 class="text-center">Konfirmasi Pembayaran</h3>
+            <h3 class="text-center">Detail Invoice</h3>
             <hr>
             
             <p class="text-center"><?=$this->session->flashdata('status');?></p>
             <div class="col-md-6 col-xs-12">
                     <h5><b style="width: 100px;display: inline-block;">No. Invoice </b>: <a href="<?=base_url('home/invoice/'.$noinvoice);?>"><?=$noinvoice;?></a></h5>
                     <h5><b style="width: 100px;display: inline-block;">Tanggal Invoice </b>: <?=date('D, d M y',strtotime(substr($noinvoice, 0,8)));?></h5>
+                    <hr>
                     <?php foreach ($userdata as $row) {?>
                         <input type="text" name="id_user" value="<?=$row['id']?>" hidden>
                         <table class="table table-hover">
-
                             <tr>
                                 <td style="width: 80px;"> <i class="fa fa-user"></i> Nama </td>
                                 <td>:</td>
@@ -54,9 +53,7 @@
 
             <div class="col-md-6 col-xs-12" style="border-left: 1px solid grey;">
                     <h4>Penerima</h4>
-                    <?php foreach ($contents as $row) {?>
-
-                        
+                    <?php foreach ($contents as $row) {?>                    
                         <table class="table table-hover">
                             <tr>
                                 <td><i class="fa fa-book"></i> ID Desain :
@@ -92,11 +89,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-upload"></i> Upload Bukti Pembayaran</td>
+                                <td><i class="fa fa-warning"></i> Status : </td>
                                 <td>:</td>
                                 <td>
-                                    <input class="form-control" type="file" name="buktipembayaran" accept="image/x-png,image/gif,image/jpeg" required <?=($row['status_konfirmasi']!=0)? 'disabled':'' ?>>
-                                    <small><em><?=($row['status_konfirmasi']!=0)? '*Jika Anda telah mengunggah bukti pembayaran, silahkan hubungi admin untuk mempercepat proses Konfirmasi. Terima Kasih':'' ?></em></small>
+                                    <p><?= ($row['status']==1)? '<b style="color:green">Dibayar</b>': '<b style="color:red">Belum Dibayar</b>';?></p>
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -104,15 +101,14 @@
                                 </td>
                                 <td></td>
                                 <td class="text-right">
-                                    <button class="btn btn-md btn-danger" onclick="history.back()" type="button" style="width:100px">Batal</button>
+                                    <p><?= ($row['status']==1)? '>': '<a href="'.base_url('home/konfirmasi/'.$noinvoice).'"><button class="btn btn-md btn-warning" type="button" style="width:100px">Bayar</button></a>';?></p>
 
-                                    <button class="btn btn-md btn-success" type="submit" style="width:100px">Konfirmasi</button>
+                                    
                                 </td>
                             </tr>
                         </table>
                         <?php }?>
             </div>
-        </form>
     </div>
     <hr>
     <div class="row form-janjitemu">

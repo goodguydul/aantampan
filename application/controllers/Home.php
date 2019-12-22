@@ -221,8 +221,9 @@ class Home extends CI_Controller {
 			$data['uname1']		= $username1;
 			$data['uname2']		= $username2;
 			$data['pagetitle']	= 'Griya Bangun Asri - '. ucwords($title);
-			$data['level']		= $user[0]['level'];
-
+			if (!empty($user[0]['level'])) {
+				$data['level']		= $user[0]['level'];
+			}
 			$this->load->view('home/v_header',$data);
 			$this->load->view('home/v_navbar',$data);	
 			$this->load->view('home/v_portofolio',$data);
@@ -263,7 +264,7 @@ class Home extends CI_Controller {
 
 					$this->load->view('home/v_header',$data);
 					$this->load->view('home/v_navbar',$data);	
-					$this->load->view('home/v_beli',$data);
+					$this->load->view('home/v_konfirmasi',$data);
 					$this->load->view('home/v_footer',$data);
 				}
 			
@@ -278,11 +279,79 @@ class Home extends CI_Controller {
 
 	public function konfirmasi($invoice=null){
 
-		if (isset($invoice) && !empty($invoice) && $invoice != null) {
-			
-		}else{
-			redirect('home');
-		}
+		if (!$this->session->userdata('username') == '') {
+			if (isset($invoice) && !empty($invoice) && $invoice != null) {
 
+				if (isset($_POST) && !empty($_POST)) {
+					
+					// if ($this->m_data->save_data($_POST,'invoice')) {
+					// 	$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Pembelian Berhasil! Silahkan melakukan Konfirmasi Pembayaran !</strong></div>');
+					// 	redirect('dashboard/profile');
+					// }else{
+					// 	$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Pembelian Gagal! Silahkan Hubungi Admin !</strong></div>');
+					// 	redirect('home/konfirmasi/'.$invoice);
+					// }
+
+				}else{
+					$username 			= $this->session->userdata('username');
+					$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
+					$data['id']			= $data['userdata'][0]['id'];
+
+					$data['noinvoice']	= $invoice;
+					$data['contents'] 	= $this->m_data->getUserData('invoice','invoice.no_invoice = '.$invoice,['portofolio','user'],['invoice.id_post = portofolio.id_port','portofolio.user_id = user.id'],['left','left']);
+					// $data['contents'] 	= $this->m_data->getPostContent($id);
+					$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
+
+					if (empty($data['contents'])) {
+						$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>ID Desain tidak ditemukan!</strong></div>');
+						redirect('dashboard/profile');	
+					}
+
+					$this->load->view('home/v_header',$data);
+					$this->load->view('home/v_navbar',$data);	
+					$this->load->view('home/v_konfirmasi',$data);
+					$this->load->view('home/v_footer',$data);
+				}
+			
+			}else{
+				redirect('404');
+			}
+		}else{
+			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
+			redirect('login');
+		}
+	}
+
+	public function invoice($invoice=null){
+
+		if (!$this->session->userdata('username') == '') {
+			if (isset($invoice) && !empty($invoice) && $invoice != null) {
+
+				$username 			= $this->session->userdata('username');
+				$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
+				$data['id']			= $data['userdata'][0]['id'];
+
+				$data['noinvoice']	= $invoice;
+				$data['contents'] 	= $this->m_data->getUserData('invoice','invoice.no_invoice = '.$invoice,['portofolio','user'],['invoice.id_post = portofolio.id_port','portofolio.user_id = user.id'],['left','left']);
+				// $data['contents'] 	= $this->m_data->getPostContent($id);
+				$data['pagetitle']	= 'Griya Bangun Asri - Beli Desain '.$data['contents'][0]['title'];
+
+				if (empty($data['contents'])) {
+					$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>ID Desain tidak ditemukan!</strong></div>');
+					redirect('dashboard/profile');	
+				}
+
+				$this->load->view('home/v_header',$data);
+				$this->load->view('home/v_navbar',$data);	
+				$this->load->view('home/v_invoice',$data);
+				$this->load->view('home/v_footer',$data);
+			
+			}else{
+				redirect('404');
+			}
+		}else{
+			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
+			redirect('login');
+		}
 	}
 }

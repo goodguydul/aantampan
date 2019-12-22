@@ -706,3 +706,7 @@ a:hover{
   /*border: 1px solid #ccc;
   border-top: none;*/
 }
+
+.form-janjitemu div h5 a:hover{
+  color: grey;
+}
