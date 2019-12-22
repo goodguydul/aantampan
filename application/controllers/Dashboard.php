@@ -169,7 +169,7 @@ class Dashboard extends CI_Controller {
 			$this->upload->initialize($config);
 
 			if(!$this->upload->do_upload('img_url')){
-				$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Portofolio Ditambahkan!</strong></div>');
+				$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Portofolio Gagal Ditambahkan!</strong></div>');
 				redirect('dashboard/profile');
 				
 			}else{

@@ -282,15 +282,52 @@ class Home extends CI_Controller {
 		if (!$this->session->userdata('username') == '') {
 			if (isset($invoice) && !empty($invoice) && $invoice != null) {
 
-				if (isset($_POST) && !empty($_POST)) {
+				if (isset(isset($_FILES['buktipembayaran']['name']) && !empty($_FILES)) {
 					
-					// if ($this->m_data->save_data($_POST,'invoice')) {
-					// 	$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Pembelian Berhasil! Silahkan melakukan Konfirmasi Pembayaran !</strong></div>');
-					// 	redirect('dashboard/profile');
-					// }else{
-					// 	$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Pembelian Gagal! Silahkan Hubungi Admin !</strong></div>');
-					// 	redirect('home/konfirmasi/'.$invoice);
-					// }
+					$username 	= $this->session->userdata('username');
+					$id 		= $this->m_data->getIDByUsername($username);
+					$paths 		= './assets/img/upload/invoice/';
+					$new_name 	= $username.'_invoice_'.$invoice.'.'.pathinfo($_FILES['buktipembayaran']['name'], PATHINFO_EXTENSION);
+
+					$config['upload_path'] 		= $paths;
+					$config['allowed_types'] 	= 'jpg|jpeg|png';
+					$config['file_name'] 		= $new_name;
+					$this->upload->initialize($config);
+
+					if(!$this->upload->do_upload('buktipembayaran')){
+						$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Bukti Pembayaran Gagal Diupload!</strong></div>');
+						redirect('home/konfirmasi/'.$invoice);
+						
+					}else{
+
+						$datax = $this->upload->data();
+					    //Compress Image
+					    $config['image_library']='gd2';
+					    $config['source_image']	= $paths.$datax['file_name'];
+					    $config['create_thumb']	= FALSE;
+					    //$config['remove_spaces']= FALSE;
+					    $config['maintain_ratio']= FALSE;
+					    $config['quality']		= '70%';
+					    // $config['width']		= 500;
+					    // $config['height']	= 500;
+					    $config['new_image']	= $paths.$datax['file_name'];
+					    $this->load->library('image_lib', $config);
+
+					    //$this->image_lib->resize();
+					    if (!$this->image_lib->resize()){
+						    echo $this->image_lib->display_errors();
+						}
+						
+						//$this->image_lib->crop();
+					   	if ($this->m_data->save_portofolio($id[0]['id'],$_POST) === true) {
+					   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Bukti Pembayaran Berhasil Diupload!</strong></div>');
+							redirect('home/konfirmasi/'.$invoice);
+					   	}else{
+					   		$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Bukti Pembayaran Gagal Diupload!</strong></div>');
+							redirect('home/konfirmasi/'.$invoice);
+					   	}
+					}
+					}		
 
 				}else{
 					$username 			= $this->session->userdata('username');

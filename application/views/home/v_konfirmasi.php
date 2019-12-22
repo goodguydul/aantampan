@@ -1,6 +1,6 @@
 <div class="container" style="margin-top:50px">
     <div class="row form-janjitemu">
-        <form action="<?=base_url('home/konfirmasi/'.$noinvoice)?>" method="POST">
+        <form action="<?=base_url('home/konfirmasi/'.$noinvoice)?>" method="POST" enctype="multipart/form-data">
             <h3 class="text-center">Konfirmasi Pembayaran</h3>
             <hr>
             
