@@ -19,6 +19,7 @@
 
 	<?=link_tag(base_url('assets/css/summernote/summernote.css'))?>
 	<script src="<?=base_url('assets/css/summernote/summernote.js')?>"></script>
+	<script src="<?=base_url('assets/js/sweetalert2.js')?>"></script>
 	
 	
 

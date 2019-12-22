@@ -37,6 +37,48 @@
 		}
 	</script>
 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.cancelapp').on('click',function(e){
+
+				Swal.fire({
+				 	title: 'Batalkan Jadwal Temu',
+				  	text: "Apakah Anda yakin untuk membatalkan jadwal temu?",
+				  	icon: 'warning',
+				  	showCancelButton: true,
+				  	confirmButtonColor: '#3085d6',
+				  	cancelButtonColor: '#d33',
+				  	confirmButtonText: 'Ya, Batalkan',
+				  	cancelButtonText: 'Tidak'
+				}).then((result) => {
+				  	if (result.value) {
+
+				  		e.preventDefault();
+				        $.ajax({
+				            type	: 	'post',
+				            url 	: 	$('.cancelapp').data('url'),
+				            success: function(response) {
+				            	Swal.fire(
+						      		'Dibatalkan',
+						      		'Jadwal Anda Telah Dibatalkan!',
+						      		'success'
+						    	)
+
+							},
+				            error: function(response) {         
+				                Swal.fire(
+						      		'Something Error',
+						      		'Ada error yang terjadi, error : '+response,
+						      		'error'
+						    	)         
+				            }        
+				        });
+				  	}
+				})
+			});
+		});
+	</script>
+
 	<footer class="footer">
 		<p>Anugrah Sakti - 2019</p>
 	</footer>

@@ -231,7 +231,7 @@
                       <td><?=date('h:i',strtotime($row['waktu']))?></td>
                       <td><?=$row['tempat']?></td>
                       <td><?= ucwords($row['fname'] .' '. $row['lname']);?></td>
-                      <td><a href="<?=base_url('home/cancel_appointment/'.$row['id_janji'])?>"><button class="btn btn-danger btn-sm">Batalkan</button></a></td>
+                      <td><button type="button" class="cancelapp btn btn-danger btn-sm" data-url="<?=base_url('home/cancel_appointment/'.$row['id_janji'])?>" >Batalkan</button></td>
                     </tr>      
                 <?php $i++; }
                 } 

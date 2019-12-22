@@ -191,6 +191,21 @@ class Home extends CI_Controller {
 		}	
 	}
 
+	public function cancel_appointment($id){
+
+		if (!empty($this->session->userdata('username'))){
+
+			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
+			$set  = array('statusjanji' => 2 );
+			if($this->m_data->update_dataX($set,'janjitemu',"user_id = ".$userdata[0]['id']." AND id_janji = $id")){
+				echo "true";
+			}else{
+				echo "false";
+			}
+
+		}
+	}
+
 	public function post($title=null){
 
 		if (isset($title) && !is_null($title)) {
@@ -392,5 +407,9 @@ class Home extends CI_Controller {
 			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
 			redirect('login');
 		}
+	}
+
+	private function checkAllAppointment(){
+
 	}
 }

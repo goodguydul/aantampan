@@ -40,7 +40,7 @@ class Dashboard extends CI_Controller {
 		$data['userdata']	= $this->m_data->getUserdataByUsername($username);
 		$data['listtukang'] = $this->m_data->getListTukang();
 		$data['invoices'] 	= $this->m_data->getUserData('invoice','invoice.id_user = '.$data['userdata'][0]['id'],'portofolio','invoice.id_post = portofolio.id_port','left');
-		$data['listjadwal']	= $this->m_data->getUserData('janjitemu','janjitemu.user_id = '.$data['userdata'][0]['id'],
+		$data['listjadwal']	= $this->m_data->getUserData('janjitemu','janjitemu.user_id = '.$data['userdata'][0]['id'].' AND statusjanji != 2',
 														['user'],
 														['janjitemu.sianu_id = user.id'],
 														['left']
@@ -209,22 +209,7 @@ class Dashboard extends CI_Controller {
 		if (isset($_POST) && !empty($_POST)) {
 
 			$data = $this->m_data->checkJadwal($_POST['id'], $_POST['checkdate']);
-			
-
-
 			print_r($data);
-			//foreach ($status as $key) {
-
-				// echo "<tr>";
-				// echo "<td>";
-				// echo $key['jam'];
-				// echo "</td>";
-				// echo "<td>";
-				// echo $key['status'];
-				// echo "</td>";
-				// echo "</tr>";
-			//}
-
 		}	
 	}
 
