@@ -58,12 +58,14 @@
 				            type	: 	'post',
 				            url 	: 	$('.cancelapp').data('url'),
 				            success: function(response) {
-				            	Swal.fire(
-						      		'Dibatalkan',
-						      		'Jadwal Anda Telah Dibatalkan!',
-						      		'success'
-						    	)
 
+				            	Swal.fire({
+				            		title: 'Dibatalkan',
+						      		text : 'Jadwal Anda Telah Dibatalkan!',
+						      		icon : 'success'
+				            	}).then((result)=>{
+				            		location.reload(true);           	
+				            	});
 							},
 				            error: function(response) {         
 				                Swal.fire(
