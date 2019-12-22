@@ -101,7 +101,7 @@
                                 </td>
                                 <td></td>
                                 <td class="text-right">
-                                    <p><?= ($row['status']==1)? '>': '<a href="'.base_url('home/konfirmasi/'.$noinvoice).'"><button class="btn btn-md btn-warning" type="button" style="width:100px">Bayar</button></a>';?></p>
+                                    <p><?= ($row['status']==1)? '': '<a href="'.base_url('home/konfirmasi/'.$noinvoice).'"><button class="btn btn-md btn-warning" type="button" style="width:100px">Bayar</button></a>';?></p>
 
                                     
                                 </td>

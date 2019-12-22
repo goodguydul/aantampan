@@ -106,7 +106,7 @@
                                 <td class="text-right">
                                     <button class="btn btn-md btn-danger" onclick="history.back()" type="button" style="width:100px">Batal</button>
 
-                                    <button class="btn btn-md btn-success" type="submit" style="width:100px">Konfirmasi</button>
+                                    <button class="btn btn-md btn-success" type="submit" style="width:100px" <?=($row['status_konfirmasi']!=0)? 'disabled':'' ?>>Konfirmasi</button>
                                 </td>
                             </tr>
                         </table>

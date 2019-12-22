@@ -280,9 +280,10 @@ class Home extends CI_Controller {
 	public function konfirmasi($invoice=null){
 
 		if (!$this->session->userdata('username') == '') {
+
 			if (isset($invoice) && !empty($invoice) && $invoice != null) {
 
-				if (isset(isset($_FILES['buktipembayaran']['name']) && !empty($_FILES)) {
+				if (isset($_FILES['buktipembayaran']['name']) && !empty($_FILES)) {
 					
 					$username 	= $this->session->userdata('username');
 					$id 		= $this->m_data->getIDByUsername($username);
@@ -319,16 +320,15 @@ class Home extends CI_Controller {
 						}
 						
 						//$this->image_lib->crop();
-					   	if ($this->m_data->save_portofolio($id[0]['id'],$_POST) === true) {
+					   	if ($this->m_data->update_dataX(['status_konfirmasi' => 1,'urlbukti' => $paths.$datax['file_name']],'invoice','no_invoice ='.$invoice) === true) {
 					   		$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Bukti Pembayaran Berhasil Diupload!</strong></div>');
 							redirect('home/konfirmasi/'.$invoice);
 					   	}else{
 					   		$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Bukti Pembayaran Gagal Diupload!</strong></div>');
 							redirect('home/konfirmasi/'.$invoice);
 					   	}
+					
 					}
-					}		
-
 				}else{
 					$username 			= $this->session->userdata('username');
 					$data['userdata'] 	= $this->m_data->getUserdataByUsername($username);
@@ -351,9 +351,11 @@ class Home extends CI_Controller {
 				}
 			
 			}else{
+
 				redirect('404');
 			}
 		}else{
+
 			$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Anda harus login untuk melakukan Pembelian !</strong></div>');
 			redirect('login');
 		}

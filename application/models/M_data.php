@@ -52,6 +52,23 @@ class M_data extends CI_Model{
         }        
     }
 
+    function update_dataX($data,$table,$where){
+
+        $this->db->trans_start();
+
+        $this->db->set($data);
+        $this->db->where($where);
+        $this->db->update($table);
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            return false;
+        }else{
+            return true;
+        }        
+    }
+
     function checkUsername($username){
 
         $this->db->select('username');

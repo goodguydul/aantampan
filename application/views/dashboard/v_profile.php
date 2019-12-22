@@ -263,7 +263,7 @@
                 }else{
                   foreach ($invoices as $row) { ?>
                     <tr class="text-center">
-                      <td><?=$row['no_invoice']?></td>
+                      <td><a href="<?=base_url('home/invoice/'.$row['no_invoice']);?>"><?=$row['no_invoice']?></a></td>
                       <td><?=date('D, d M Y',strtotime($row['invoicedate']))?></td>
                       <td><?=$row['id_post']?></td>
                       <td><?=$row['title']?></td>
