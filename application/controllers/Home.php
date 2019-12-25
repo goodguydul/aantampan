@@ -22,6 +22,10 @@ class Home extends CI_Controller {
 	public function profile($username=null){
 		if ($username !== null) {
 			
+			if ($username == $this->session->userdata('username')) {
+				redirect('dashboard/profile');
+			}
+
 			$data['pagetitle']	= 'Griya Bangun Asri - Profile ' . ucwords($username);
 			$data['uname']		= $username;
 			$data['userdata']	= $this->m_data->getUserdataByUsername($username);
@@ -81,7 +85,7 @@ class Home extends CI_Controller {
 
 					while($tNow <= $tEnd){
 					  $times[] = date("H:i",$tNow);
-					  $tNow = strtotime('+30 minutes',$tNow);
+					  $tNow = strtotime('+60 minutes',$tNow);
 					}
 
 					$data['pagetitle']	= 'Griya Bangun Asri - Buat Janji Temu Dengan ' . ucwords($username);
@@ -114,7 +118,7 @@ class Home extends CI_Controller {
 							$this->load->view('home/v_footer',$data);
 						}else{
 
-							redirect('home/profile/'.$username);
+							redirect('home/profile-/'.$username);
 						}	
 					
 					}else{
@@ -139,7 +143,7 @@ class Home extends CI_Controller {
 	public function check_appointment(){
 		if (isset($_POST) && !empty($_POST)) {
 
-			$data = $this->m_data->checkJadwal($_POST['id'], $_POST['checkdate']);
+			$data = $this->m_data->checkJadwalX($_POST['id'], $_POST['checkdate']);
 			$available1 =[];
 			$available2	=[];
 			$start 		= "08:00";
@@ -151,7 +155,7 @@ class Home extends CI_Controller {
 
 			while($tNow <= $tEnd){
 				$times[] = date("H:i",$tNow);
-				$tNow = strtotime('+30 minutes',$tNow);
+				$tNow = strtotime('+60 minutes',$tNow);
 			}
 
 			$i=0;
@@ -191,20 +195,41 @@ class Home extends CI_Controller {
 		}	
 	}
 
-	public function cancel_appointment($id){
+	public function cancel_appointment($id,$user){
 
 		if (!empty($this->session->userdata('username'))){
 
 			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
 			$set  = array('statusjanji' => 2 );
-			if($this->m_data->update_dataX($set,'janjitemu',"user_id = ".$userdata[0]['id']." AND id_janji = $id")){
+			if($this->m_data->update_dataX($set,'janjitemu',$user." = ".$userdata[0]['id']." AND id_janji = $id")){
 				echo "true";
 			}else{
 				echo "false";
 			}
 
+		}else{
+			redirect('home');
 		}
 	}
+
+	public function confirm_appointment($id,$user){
+
+		if (!empty($this->session->userdata('username'))){
+
+			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
+			$set  = array('statusjanji' => 1 );
+			if($this->m_data->update_dataX($set,'janjitemu',$user." = ".$userdata[0]['id']." AND id_janji = $id")){
+				echo "true";
+			}else{
+				echo "false";
+			}
+
+		}else{
+			redirect('home');
+		}
+	}
+	
+
 
 	public function post($title=null){
 
@@ -231,14 +256,16 @@ class Home extends CI_Controller {
 			$data['contents'][0]['arsitek']		= $data['contents'][0]['username'];
 			$data['contents'][0]['tukang']		= $temp[0]['username'];		
 
+
 			$username1 			= $data['contents'][0]['username'];
 			$username2 			= $temp[0]['username'];
 			$data['uname1']		= $username1;
 			$data['uname2']		= $username2;
 			$data['pagetitle']	= 'Griya Bangun Asri - '. ucwords($title);
-			if (!empty($user[0]['level'])) {
+			if (!is_null($user[0]['level'])) {
 				$data['level']		= $user[0]['level'];
 			}
+			//print_r($user[0]['level']);
 			$this->load->view('home/v_header',$data);
 			$this->load->view('home/v_navbar',$data);	
 			$this->load->view('home/v_portofolio',$data);
@@ -279,7 +306,7 @@ class Home extends CI_Controller {
 
 					$this->load->view('home/v_header',$data);
 					$this->load->view('home/v_navbar',$data);	
-					$this->load->view('home/v_konfirmasi',$data);
+					$this->load->view('home/v_beli',$data);
 					$this->load->view('home/v_footer',$data);
 				}
 			

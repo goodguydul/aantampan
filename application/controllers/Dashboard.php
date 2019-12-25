@@ -38,8 +38,14 @@ class Dashboard extends CI_Controller {
 		$data['pagetitle']	= 'Griya Bangun Asri - Profile';
 		$data['uname']		= $username;
 		$data['userdata']	= $this->m_data->getUserdataByUsername($username);
-		$data['listtukang'] = $this->m_data->getListTukang();
-		$data['invoices'] 	= $this->m_data->getUserData('invoice','invoice.id_user = '.$data['userdata'][0]['id'],'portofolio','invoice.id_post = portofolio.id_port','left');
+		if ($data['userdata'][0]['level'] == 2) {
+			$data['listtukang'] = $this->m_data->getListTukang();
+		}elseif ($data['userdata'][0]['level'] == 3){
+			$data['listtukang'] = $this->m_data->getListArsitek();			
+		}else{
+			$data['listtukang'] = [];			
+		}
+		$data['invoices'] 	= $this->m_data->getUserData('invoice','invoice.id_user = '.$data['userdata'][0]['id'].' AND invoice.status !=3','portofolio','invoice.id_post = portofolio.id_port','left');
 		$data['listjadwal']	= $this->m_data->getUserData('janjitemu','janjitemu.user_id = '.$data['userdata'][0]['id'].' AND statusjanji != 2',
 														['user'],
 														['janjitemu.sianu_id = user.id'],
@@ -206,10 +212,38 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function checkjadwal(){
+
 		if (isset($_POST) && !empty($_POST)) {
 
-			$data = $this->m_data->checkJadwal($_POST['id'], $_POST['checkdate']);
+			$data = $this->m_data->checkJadwalX($_POST['id'], $_POST['checkdate']);
 			print_r($data);
+			if (empty($data)) {
+				echo "
+					<tr>
+						<td colspan='3'>
+							<p class='text-center'><em>Tidak ada Jadwal Janji Temu</em></p>
+						</td>
+					</tr>
+				";
+			}else{
+				foreach ($data as $key) {
+					echo "
+						<tr>
+							<td>
+								".date('h:i',strtotime($key['waktu']))."
+							</td>
+							<td>
+								<b><a href='".base_url('home/profile/'.$key['username'])."'> ".$key['fname']." ".$key['lname']."</a></b>
+							</td>
+							<td>
+								<button type='button' onclick='cancel_appointment()' class='cancelapp btn btn-danger btn-sm' data-url='".base_url('home/cancel_appointment/'.$key['id_janji'].'/sianu_id')."'>Batalkan</button>
+							</td>
+						</tr>
+					";
+				}
+			}
+		}else{
+			redirect('home');
 		}	
 	}
 

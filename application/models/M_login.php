@@ -13,15 +13,14 @@ class M_login extends CI_Model{
         return $query->result_array();
 	}
 
-	function cekuser($username)
-    {
+	function cekuser($username) {
         $this->db->select('level');
         $this->db->from('user');
         $this->db->where('username',$username);
 
         $query = $this->db->get();
 
-        return $query->result();
+        return $query->result_array();
     }
     
     function ceklogin(){

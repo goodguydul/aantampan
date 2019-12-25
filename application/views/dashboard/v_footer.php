@@ -19,9 +19,16 @@
 		        });
 		    });
 		});
+
 		$( window ).load(function() {
-		  openMenu(event, 'Appointment');
+		<?php if ($level == 1) { ?>
+		  	
+			openMenu(event, 'Appointment');
+		<?php }else{?>
+		  	openMenu(event, 'Portofolio');
+		<?php }?>
 		});
+
 		function openMenu(evt, menuName) {
 		  	var i, tabcontent, tablinks;
 		  	tabcontent = document.getElementsByClassName("tabcontent");
@@ -32,7 +39,7 @@
 		  	for (i = 0; i < tablinks.length; i++) {
 		    	tablinks[i].className = tablinks[i].className.replace(" active", "");
 		  	}
-		  		document.getElementById(menuName).style.display = "block";
+		  	document.getElementById(menuName).style.display = "block";
 		  	evt.currentTarget.className += " active";
 		}
 	</script>
@@ -40,19 +47,23 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.cancelapp').on('click',function(e){
-
-				Swal.fire({
-				 	title: 'Batalkan Jadwal Temu',
-				  	text: "Apakah Anda yakin untuk membatalkan jadwal temu?",
-				  	icon: 'warning',
-				  	showCancelButton: true,
-				  	confirmButtonColor: '#3085d6',
+				cancel_appointment(e);	
+			});
+		});
+		
+		function cancel_appointment(e){
+			Swal.fire({
+				title: 'Batalkan Jadwal Temu',
+				text: "Apakah Anda yakin untuk membatalkan jadwal temu?",
+				icon: 'warning',
+				showCancelButton: true,
+				 confirmButtonColor: '#3085d6',
 				  	cancelButtonColor: '#d33',
 				  	confirmButtonText: 'Ya, Batalkan',
 				  	cancelButtonText: 'Tidak'
-				}).then((result) => {
+			}).then((result) => {
 				  	if (result.value) {
-
+				  		 e = e || window.event;
 				  		e.preventDefault();
 				        $.ajax({
 				            type	: 	'post',
@@ -76,9 +87,8 @@
 				            }        
 				        });
 				  	}
-				})
-			});
-		});
+				});
+		}
 	</script>
 
 	<footer class="footer">

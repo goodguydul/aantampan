@@ -115,10 +115,11 @@
     <div class="row form-janjitemu">
         <div class="col-xs-6 bs-callout bs-callout-danger">
             <h3>Catatan : </h3>
-            <p style="font-size: 16px">
-                Data Order akan dikirim ke e-mail Anda setelah Anda melakukan Pembelian.
-            Segera lakukan pembayaran sesuai harga desain di atas.
-            Kirim ke rekening developer <b>Griya Bangun Asri 555 222 906 1667 (BRI)</b>, lalu upload bukti transfer Anda pada menu Pembelian yang ada di halaman profil Anda. Apabila Anda tidak melakukan pembayaran dalam 3 hari, maka transaksi dianggap batal.</p>
+            <ul style="font-size: 16px">
+            <li>Invoice Anda akan dikirim ke e-mail Anda setelah Anda melakukan Pembelian, dan Pesanan akan dikirimkan ke Alamat yang terdaftar pada akun Anda.</li>
+            <li>Segera lakukan pembayaran sesuai harga desain di atas. </li>
+            <li>Kirim pembayaran melalui Rekening Developer : <b> <pre>Griya Bangun Asri 555 222 906 1667 (BRI)</pre></b>lalu upload bukti transfer Anda pada menu Pembelian yang ada di halaman profil Anda. </li>
+            <li>Apabila Anda tidak melakukan pembayaran dalam 3 hari, maka transaksi dianggap batal. Untuk Info lebih lanjut harap hubungi admin via email : <b>admin@griyabangunasri.com</b></li></ul>
         </div>
         
     </div>    

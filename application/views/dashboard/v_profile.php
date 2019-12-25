@@ -30,13 +30,13 @@
                            <?=$this->session->flashdata('status');?>
                            <ul class="list-group">
                               <li class="list-group-item"><i class="fa fa-user"></i> <?= ucwords($row['fname'] .' '. $row['lname']);?></li>
-                              <li class="list-group-item"><i class="fa fa-home"></i> <?= ucwords($row['alamat']);?></li>
-                              <li class="list-group-item"><i class="fa fa-calendar"></i> <?= ucwords($row['birthplace'] . ', ' . date('D, d M Y', strtotime($row['birthdate'])));?></li>
-                              <li class="list-group-item"><i class="fa fa-phone"></i> <?= $row['nohp'];?></li>
-                              <li class="list-group-item"><i class="fa fa-envelope"></i> <?= $row['email'];?></li>
+                              <li class="list-group-item"><i class="fa fa-home"></i> <?= ($this->session->userdata('username')=='') ? '<b>Anda harus Login untuk melihat data ini! </b>' : ucwords($row['alamat']);?></li>
+                              <li class="list-group-item"><i class="fa fa-calendar"></i> <?= ($this->session->userdata('username')=='') ? '<b>Anda harus Login untuk melihat data ini! </b>' :  ucwords($row['birthplace'] . ', ' . date('D, d M Y', strtotime($row['birthdate'])));?></li>
+                              <li class="list-group-item"><i class="fa fa-phone"></i> <?= ($this->session->userdata('username')=='') ? '<b>Anda harus Login untuk melihat data ini! </b>' :  $row['nohp'];?></li>
+                              <li class="list-group-item"><i class="fa fa-envelope"></i> <?= ($this->session->userdata('username')=='') ? '<b>Anda harus Login untuk melihat data ini! </b>' :  $row['email'];?></li>
                            <?php }?>
                            </ul>
-                           <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') !== $uname){
+                           <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') !== $uname && $level != 1){
                            ?>
                            <a href="<?=base_url('home/make_appointment/'.$uname);?>"> 
                               <button style="margin:10px 10px 10px 0px;width: 100%" class="btn btn-success" type="button"><i class="fa fa-notes"></i> Buat Janji Temu</button>
@@ -50,13 +50,55 @@
                </div>  
             </div>
             <hr>
-            <?php if($level != 1 ){?>
-               <div class="bs-callout bs-callout-danger">
+            <?php if($this->session->userdata('username') !== $uname && $level != 1 ){?>
+              <div class="bs-callout bs-callout-danger">
                   <div class="row" style="margin-left: 0px;">
                      <h4 style="margin-right: 10px;">Portofolio</h4>
-                     <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') === $uname ){?>
-                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPortofolio"><i class="fa fa-plus"></i> Tambah Portofolio</button> 
-                     <div id="addPortofolio" class="modal fade" role="dialog">
+                     
+                  </div>   
+                  <hr> 
+                  <?php if(!empty($portofolio)){ ?>
+                        
+                    <?php foreach ($portofolio as $key) {?>
+                        <?php if ($key['status_moderasi'] == 0 && $this->session->userdata('username') !== $uname ) {
+                          
+                        }else{?>
+                        <div class="wrap">
+                           <div class="cardx" <?=($key['status_moderasi'] == 0)? "style='box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);'" : ""?>>
+                                <div class="card-liner">
+                                    <figure><img src="<?=base_url($key['img_url'])?>" alt="" /> </figure>
+                                    <div class="card--title">
+                                        <h3><?=$key['title']?></h3>
+                                        <p></p>
+                                    </div>
+                                    <div class="card--btn">
+                                        <a href="<?=($key['status_moderasi'] == 0)? "#" : $key['url']?>">
+                                            <span class="moreinfo"><i class="fa fa-info-circle"></i> More Info</span>
+                                            <span class="fullprof"><?=($key['status_moderasi'] == 0)? "Menunggu Moderasi Admin" : "Lihat Portofolio"?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    <?php }
+
+                    }else{?> 
+                  
+                    <p><em><small>--- Belum ada Portofolio</small></em></p>
+                  <?php }?> 
+              </div>
+            <?php }elseif($this->session->userdata('username') == $uname && $level != 1 ){?>
+              <div class="tab bs-callout bs-callout-danger" style="padding: 0px">
+                <button class="tablinks" onclick="openMenu(event, 'Portofolio')">Portofolio</button>
+                <button class="tablinks" onclick="openMenu(event, 'Appointment')">Daftar Janji Temu</button>
+              </div>
+              <div id="Portofolio" class="tabcontent bs-callout bs-callout-danger">
+                <div class="row" style="margin-left: 0px;">
+                  <h4 style="margin-right: 10px;">Portofolio</h4>
+                <?php if($this->session->userdata('username') !== '' && $this->session->userdata('username') === $uname ){?>
+                  <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPortofolio"><i class="fa fa-plus"></i> Tambah Portofolio</button> 
+                  <div id="addPortofolio" class="modal fade" role="dialog">
                         <div class="modal-dialog" >
 
                          <!-- Modal content-->
@@ -79,7 +121,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                       <label style="width: 100px;">Tukang : </label>
+                                       <label style="width: 100px;"><?= ($level == 3) ? 'Arsitek : ' : 'Tukang : '?></label>
                                        <select class="form-control" name="related_id" required="">
                                        <option disabled selected></option>
                                           <?php foreach ($listtukang as $row) { ?>
@@ -133,16 +175,18 @@
                          </div>
 
                         </div>
-                     </div>
-                     <?php }?>
-                  </div>   
+                  </div>
+                <?php }?>
+                </div>   
                   <hr> 
-                  <?php if(!empty($portofolio)){ ?>
+                <?php if(!empty($portofolio)){ ?>
                         
-                     <?php foreach ($portofolio as $key) {?>
-                        
+                    <?php foreach ($portofolio as $key) {?>
+                        <?php if ($key['status_moderasi'] == 0 && $this->session->userdata('username') == '' ) {
+                          
+                        }else{?>
                         <div class="wrap">
-                           <div class="cardx">
+                           <div class="cardx" <?=($key['status_moderasi'] == 0)? "style='box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);'" : ""?>>
                                 <div class="card-liner">
                                     <figure><img src="<?=base_url($key['img_url'])?>" alt="" /> </figure>
                                     <div class="card--title">
@@ -150,26 +194,24 @@
                                         <p></p>
                                     </div>
                                     <div class="card--btn">
-                                        <a href="<?=$key['url']?>">
+                                        <a href="<?=($key['status_moderasi'] == 0)? "#" : $key['url']?>">
                                             <span class="moreinfo"><i class="fa fa-info-circle"></i> More Info</span>
-                                            <span class="fullprof">Lihat Portofolio</span>
+                                            <span class="fullprof"><?=($key['status_moderasi'] == 0)? "Menunggu Moderasi Admin" : "Lihat Portofolio"?></span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                     <?php }
+                        <?php } ?>
+                    <?php }
 
-                     }else{?> 
+                    }else{?> 
                   
-                     <p><em><small>--- Belum ada Portofolio</small></em></p>
-
-                  <?php }?> 
-               </div>
-               <?php?>
-            <?php }elseif($this->session->userdata('username') === $uname && $level != 1 ){?>
-               <div class="bs-callout bs-callout-danger">
-                  <h4 style="margin-right: 10px;">Daftar Janji Temu</h4>
+                    <p><em><small>--- Belum ada Portofolio</small></em></p>
+                <?php }?> 
+              </div>
+              <div id="Appointment" class="tabcontent bs-callout bs-callout-danger">
+                <h4 style="margin-right: 10px;">Daftar Janji Temu</h4>
                          
                      <form id="checkjadwal"  method="POST">
                         <div class="form-inline">
@@ -186,17 +228,18 @@
                                    <tr>
                                        <th>Jam</th>
                                        <th>Pelanggan</th>
+                                       <th>Aksi</th>
                                    </tr>
-                               </thead>
-                               <tbody id="listjadwal">
+                              </thead>
+                              <tbody id="listjadwal">
                                    
-                               </tbody>
+                              </tbody>
                            </table>
                         </div>
                         
                     </form>
                </div>  
-            <?php }else{?>
+            <?php }elseif($this->session->userdata('username') == $uname && $level == 1 ){?>
 
               <div class="tab bs-callout bs-callout-danger" style="padding: 0px">
                 <button class="tablinks" onclick="openMenu(event, 'Appointment')">Daftar Janji Temu</button>
@@ -231,7 +274,7 @@
                       <td><?=date('h:i',strtotime($row['waktu']))?></td>
                       <td><?=$row['tempat']?></td>
                       <td><?= ucwords($row['fname'] .' '. $row['lname']);?></td>
-                      <td><button type="button" class="cancelapp btn btn-danger btn-sm" data-url="<?=base_url('home/cancel_appointment/'.$row['id_janji'])?>" >Batalkan</button></td>
+                      <td><button type="button" class="cancelapp btn btn-danger btn-sm" data-url="<?=base_url('home/cancel_appointment/'.$row['id_janji'].'/user_id')?>" >Batalkan</button></td>
                     </tr>      
                 <?php $i++; }
                 } 
