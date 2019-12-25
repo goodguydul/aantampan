@@ -31,8 +31,8 @@ class Admin extends CI_Controller {
 	public function index(){
 
 		$data['pagetitle'] 			= "Admin Dashboard - Griya Bangun Asri";
-		$data['paidDesign']			= $this->m_data->getPaidDesign();
-		$data['notValidatedDesign']	= $this->m_data->getNeedValidateDesign();
+		$data['paidDesign']			= $this->m_data->getPaidInvoice();
+		$data['notValidatedDesign']	= $this->m_data->getNeedValidateInvoice();
 		$data['notModeratedDesign']	= $this->m_data->getNeedModeratedDesign();
 		$data['allAppointment']		= $this->m_data->getAllAppointment();
 		$data['allUsers']			= $this->m_data->getAllUsers();
@@ -77,7 +77,7 @@ class Admin extends CI_Controller {
 
 	public function manage_sale(){
 		$data['pagetitle'] 			= "Manage Penjualan - Griya Bangun Asri";
-		$temp 						= $this->m_data->getPaidDesign();
+		$temp 						= $this->m_data->getPaidInvoice();
 		$i 							= 0;
 		
 		for ($i=0; $i < count($temp); $i++) { 
@@ -106,7 +106,7 @@ class Admin extends CI_Controller {
 
 	public function manage_invoice(){
 		$data['pagetitle'] 			= "Manage Penjualan - Griya Bangun Asri";
-		$temp 						= $this->m_data->getNeedValidateDesign();
+		$temp 						= $this->m_data->getNeedValidateInvoice();
 		$i 							= 0;
 			
 		if (!empty($temp)) {
@@ -141,13 +141,70 @@ class Admin extends CI_Controller {
 	public function manage_portofolio(){
 		$data['pagetitle'] 			= "Manage Portofolio - Griya Bangun Asri";
 
+		$temp 						= $this->m_data->getAllDesign();
+		$i 							= 0;
+			
+		if (!empty($temp)) {
+			for ($i=0; $i < count($temp); $i++) { 
+				$temp1[$i] 	= $this->m_data->getUsernameByID($temp[$i]['user_id']);
+				$temp2[$i] 	= $this->m_data->getUsernameByID($temp[$i]['related_id']);
+			}
+
+				$temp1 = array_column($temp1,0);
+				$temp2 = array_column($temp2,0);
+
+			for ($i=0; $i < count($temp1); $i++) { 
+
+				$temp[$i]['arsitek'] = $temp1[$i]['fname'].' '.$temp1[$i]['lname'];
+				$temp[$i]['tukang'] = $temp2[$i]['fname'].' '.$temp2[$i]['lname'];
+			}
+
+			$data['portofolioList']		= $temp;
+
+		}else{
+
+			$data['portofolioList']		= [];
+		}
+
 		$this->load->view('admin/v_header',$data);
 		$this->load->view('admin/v_navbar',$data);
-		$this->load->view('admin/v_manage_portofolio',$data);
+		$this->load->view('admin/v_portofolio',$data);
 		$this->load->view('admin/v_footer',$data);
 	}
 
+	public function manage_portofolio_moderate(){
+		$data['pagetitle'] 			= "Manage Portofolio - Griya Bangun Asri";
 
+		$temp 						= $this->m_data->getNeedModeratedDesign();
+		$i 							= 0;
+			
+		if (!empty($temp)) {
+			for ($i=0; $i < count($temp); $i++) { 
+				$temp1[$i] 	= $this->m_data->getUsernameByID($temp[$i]['user_id']);
+				$temp2[$i] 	= $this->m_data->getUsernameByID($temp[$i]['related_id']);
+			}
+
+				$temp1 = array_column($temp1,0);
+				$temp2 = array_column($temp2,0);
+
+			for ($i=0; $i < count($temp1); $i++) { 
+
+				$temp[$i]['arsitek'] = $temp1[$i]['fname'].' '.$temp1[$i]['lname'];
+				$temp[$i]['tukang'] = $temp2[$i]['fname'].' '.$temp2[$i]['lname'];
+			}
+
+			$data['portofolioList']		= $temp;
+
+		}else{
+
+			$data['portofolioList']		= [];
+		}
+
+		$this->load->view('admin/v_header',$data);
+		$this->load->view('admin/v_navbar',$data);
+		$this->load->view('admin/v_portofolio',$data);
+		$this->load->view('admin/v_footer',$data);
+	}
 
 
 

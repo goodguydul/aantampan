@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Penjadwalan</h1>
+                    <h1>Manage Portofolio</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('auth')?>">Home</a></li>
-                        <li class="breadcrumb-item active">Penjadwalan</li>
+                        <li class="breadcrumb-item active">Portofolio</li>
                     </ol>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Jadwal Janji Temu User</h5>
+                        <h5>Portofolio User</h5>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -29,38 +29,39 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID Janji</th>
-                                    <th>Tanggal Janji</th>
-                                    <th>Jam</th>
-                                    <th>Pembuat Janji</th>
-                                    <th>Penerima Janji</th>
-                                    <th>Status Janji</th>
+                                    <th>ID Desain</th>
+                                    <th>Judul</th>
+                                    <th>Author</th>
+                                    <th>Related Author</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php $i = 1;
-                              foreach ($appointmentList as $row) { ?>
-                                <?php if (!empty($appointmentList)) {
+                              foreach ($portofolioList as $row) { ?>
+                                <?php if (!empty($portofolioList)) {
                                     
                                 ?>
                                 <tr>
                                   <td><?=$i;?></td>
 
-                                  <td><?=$row['id_janji']?></td>
-                                  <td><?=date('D, d M Y',strtotime($row['tanggal']))?></td>
-                                  <td><?=date('h:i',strtotime($row['waktu']))?></td>
-                                  <td><?=ucwords($row['pembuat'])?></td>
-                                  <td><?=ucwords($row['penerima'])?></td>
-                                  <td><?=($row['statusjanji'] == 1 ? '<b style="color : green">Telah Selesai</b>' : ($row['statusjanji'] == 2 ? '<b style="color : red">Dibatalkan</b>': '<b style="color : orange">Menunggu Persetujuan</b>' )) ?></td>    
+                                  <td><?=$row['id_port']?></td>
+                                  <td><?=$row['title']?></td>
+                                  <td><?=ucwords($row['arsitek'])?></td>
+                                  <td><?=ucwords($row['tukang'])?></td>
+                                  <td><?= "Rp " . number_format($row['harga'],2,',','.')?></td>   
+                                  <td><?=($row['status_moderasi'] == 1 ? '<b style="color : green">Disetujui</b>' : ( $row['status_moderasi'] == 2 ? '<b style="color : red">Dibatalkan</b>'  : '<b style="color : orange">Menunggu Persetujuan</b>' ))?></td>   
+
                                   <td class="project-actions">
-                                    <button type="button" class="viewJanjibtn btn btn-success btn-sm" data-id="<?=$row['id_janji']?>" data-pembeliid="<?=$row['user_id']?>" data-penjualid="<?=$row['sianu_id']?>"  data-toggle="modal" data-target="#viewJadwal">
+                                    <button type="button" class="viewpostbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewInvoice">
                                         <i class="fas fa-user"></i> View
                                     </button>
                                     <!-- <button type="button" class="editbtn btn btn-info btn-sm" data-id="<?=$row['id']?>">
                                       <i class="fas fa-pencil-alt"></i> Edit
                                     </button> -->
-                                    <button type="button" class="deleteJanjibtn btn-danger btn-sm" data-id="<?=$row['id_janji']?>" data-url="<?=base_url('admin/cancel_appointment/'.$row['id_janji'])?>">
+                                    <button type="button" class="deletepostbtn btn-danger btn-sm" data-id="<?=$row['id_port']?>" data-url="<?=base_url('admin/delete_portofolio/'.$row['id_port'])?>">
                                       <i class="fas fa-trash"></i> Delete
                                     </button>
                                   </td>
@@ -78,16 +79,16 @@
         <!-- /.col -->
     </section>
     <!-- Modal -->
-    <div class="modal fade" id="viewJadwal" tabindex="-1" role="dialog" aria-labelledby="viewJadwalLabel" aria-hidden="true">
+    <div class="modal fade" id="viewInvoice" tabindex="-1" role="dialog" aria-labelledby="viewInvoiceLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="viewJadwalLabel">Detail Jadwal</h5>
+            <h5 class="modal-title" id="viewInvoiceLabel">Detail Portofolio</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div id="viewJadwalContent" class="modal-body">
+          <div id="viewInvoiceContent" class="modal-body">
             
           </div>
           <div class="modal-footer">

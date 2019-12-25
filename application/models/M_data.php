@@ -237,18 +237,18 @@ class M_data extends CI_Model{
 
     // ADMIN SECTION
 
-    function getPaidDesign(){
+    function getPaidInvoice(){
         $this->db->select('*');
         $this->db->from('invoice');
         $this->db->where('invoice.status = 1'); // 1 validated, 2 failed or cancelled
         $this->db->where('invoice.status != 3'); 
-        
+
         $this->db->join('portofolio','portofolio.id_port = invoice.id_post','left'); 
         $query      = $this->db->get();
         return $query->result_array();
     }
 
-    function getNeedValidateDesign(){
+    function getNeedValidateInvoice(){
         $this->db->select('*');
         $this->db->from('invoice');
         $this->db->where('invoice.status = 0'); // 0 not yet validated
@@ -262,7 +262,9 @@ class M_data extends CI_Model{
     function getNeedModeratedDesign(){
         $this->db->select('*');
         $this->db->from('portofolio');
-        $this->db->where('status_moderasi = 0'); // 0 not yet validated
+        $this->db->where('portofolio.status_moderasi = 0'); // 0 not yet validated
+        $this->db->join('user','portofolio.user_id = user.id','left'); 
+
         $query      = $this->db->get();
         return $query->result_array();
     }
@@ -270,7 +272,9 @@ class M_data extends CI_Model{
     function getAllDesign(){
         $this->db->select('*');
         $this->db->from('portofolio');
-        $this->db->where('status_moderasi != 0'); // 0 not yet validated
+        $this->db->where('portofolio.status_moderasi = 1'); // 0 not yet validated
+        $this->db->join('user','portofolio.user_id = user.id','left'); 
+
         $query      = $this->db->get();
         return $query->result_array();
     }

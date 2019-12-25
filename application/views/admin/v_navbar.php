@@ -71,7 +71,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= base_url('admin/manage_user')?>" class="nav-link">
+                                        <a href="<?= base_url('admin/manage_portofolio')?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Portofolio</p>
                                         </a>

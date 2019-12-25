@@ -122,7 +122,7 @@
                         <div class="icon">
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
-                        <a href="<?= base_url('admin/manage_portofolio')?>" class="small-box-footer">
+                        <a href="<?= base_url('admin/manage_portofolio_moderate')?>" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
