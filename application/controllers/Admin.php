@@ -206,9 +206,16 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/v_footer',$data);
 	}
 
+	public function manage_user(){
+		
+		$data['pagetitle'] 			= "Admin Dashboard - Griya Bangun Asri";
+		$data['userList']			= $this->m_data->getAllUsers();
 
-
-
+		$this->load->view('admin/v_header',$data);
+		$this->load->view('admin/v_navbar',$data);
+		$this->load->view('admin/v_manage_user',$data);
+		$this->load->view('admin/v_footer',$data);
+	}
 
 
 

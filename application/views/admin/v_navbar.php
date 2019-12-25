@@ -77,13 +77,13 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= base_url('admin/manage_user')?>" class="nav-link">
+                                        <a href="<?= base_url('admin/manage_invoice')?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Invoice</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= base_url('admin/manage_penjualan')?>" class="nav-link">
+                                        <a href="<?= base_url('admin/manage_sale')?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Penjualan</p>
                                         </a>
