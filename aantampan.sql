@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Des 2019 pada 19.20
+-- Waktu pembuatan: 26 Des 2019 pada 00.03
 -- Versi server: 10.1.21-MariaDB
 -- Versi PHP: 7.2.6
 
@@ -36,6 +36,8 @@ CREATE TABLE `invoice` (
   `id_sianu` int(11) NOT NULL,
   `harga` varchar(90) NOT NULL,
   `status` int(11) NOT NULL,
+  `status_konfirmasi` int(11) DEFAULT NULL,
+  `urlbukti` text,
   `id_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,8 +45,11 @@ CREATE TABLE `invoice` (
 -- Dumping data untuk tabel `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoicedate`, `no_invoice`, `id_user`, `id_sianu`, `harga`, `status`, `id_post`) VALUES
-(7, '2019-12-21', '20191220110', 16, 15, '10000000', 0, 11);
+INSERT INTO `invoice` (`id`, `invoicedate`, `no_invoice`, `id_user`, `id_sianu`, `harga`, `status`, `status_konfirmasi`, `urlbukti`, `id_post`) VALUES
+(7, '2019-12-21', '20191221110', 16, 15, '10000000', 1, 1, './assets/img/upload/invoice/budisetiawan_invoice_201912211101.png', 11),
+(8, '2019-12-21', '20191221111', 16, 15, '10000000', 1, 1, './assets/img/upload/invoice/budisetiawan_invoice_20191221111.png', 11),
+(9, '2019-12-25', '20191225102', 16, 15, '10000000', 1, 1, './assets/img/upload/invoice/budisetiawan_invoice_20191225102.png', 10),
+(10, '2019-12-21', '20191226113', 16, 15, '10000000', 0, 1, './assets/img/upload/invoice/budisetiawan_invoice_201912211101.png', 11);
 
 -- --------------------------------------------------------
 
@@ -53,29 +58,39 @@ INSERT INTO `invoice` (`id`, `invoicedate`, `no_invoice`, `id_user`, `id_sianu`,
 --
 
 CREATE TABLE `janjitemu` (
-  `id` int(11) NOT NULL,
+  `id_janji` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `waktu` time NOT NULL,
   `tempat` text NOT NULL,
-  `sianu_id` int(11) NOT NULL
+  `sianu_id` int(11) NOT NULL,
+  `statusjanji` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `janjitemu`
 --
 
-INSERT INTO `janjitemu` (`id`, `user_id`, `tanggal`, `waktu`, `tempat`, `sianu_id`) VALUES
-(1, 1, '2019-12-13', '12:00:00', 'Palembang', 12),
-(2, 1, '2019-12-14', '12:00:00', 'mbuh', 12),
-(3, 1, '2019-12-13', '08:00:00', 'Griya Bangun Asri', 12),
-(4, 13, '2019-12-14', '08:00:00', 'Griya Bangun Asri', 12),
-(5, 13, '2019-12-15', '08:00:00', 'Griya Bangun Asri', 12),
-(6, 15, '2019-12-17', '08:00:00', 'Griya Bangun Asri', 14),
-(7, 13, '2019-12-17', '08:30:00', 'Griya Bangun Asri', 14),
-(8, 1, '2019-12-17', '08:00:00', 'Griya Bangun Asri', 15),
-(9, 1, '2019-12-17', '17:00:00', 'Griya Bangun Asri', 13),
-(10, 15, '2019-12-18', '08:00:00', 'Griya Bangun Asri', 13);
+INSERT INTO `janjitemu` (`id_janji`, `user_id`, `tanggal`, `waktu`, `tempat`, `sianu_id`, `statusjanji`) VALUES
+(1, 1, '2019-12-13', '12:00:00', 'Palembang', 12, 0),
+(2, 1, '2019-12-14', '12:00:00', 'mbuh', 12, 0),
+(3, 1, '2019-12-13', '08:00:00', 'Griya Bangun Asri', 12, 0),
+(4, 13, '2019-12-14', '08:00:00', 'Griya Bangun Asri', 12, 0),
+(5, 13, '2019-12-15', '08:00:00', 'Griya Bangun Asri', 12, 0),
+(6, 15, '2019-12-17', '08:00:00', 'Griya Bangun Asri', 14, 0),
+(7, 13, '2019-12-17', '08:30:00', 'Griya Bangun Asri', 14, 0),
+(8, 1, '2019-12-17', '08:00:00', 'Griya Bangun Asri', 15, 0),
+(9, 1, '2019-12-17', '17:00:00', 'Griya Bangun Asri', 13, 0),
+(10, 15, '2019-12-18', '08:00:00', 'Griya Bangun Asri', 13, 0),
+(11, 16, '2019-12-21', '08:30:00', 'Griya Bangun Asri', 15, 2),
+(12, 16, '2019-12-21', '09:00:00', 'Griya Bangun Asri', 15, 2),
+(13, 16, '2019-12-23', '09:00:00', 'Griya Bangun Asri', 15, 2),
+(14, 16, '2019-12-23', '08:30:00', 'asdasd', 15, 2),
+(15, 16, '2019-12-23', '12:00:00', 'Griya Bangun Asri', 15, 2),
+(16, 16, '2019-12-24', '09:30:00', 'Griya Bangun Asri', 15, 2),
+(17, 16, '2019-12-23', '08:00:00', 'Griya Bangun Asri', 15, 2),
+(18, 16, '2019-12-23', '08:00:00', 'Griya Bangun Asri', 15, 0),
+(19, 16, '2019-12-25', '08:00:00', 'Griya Bangun Asri', 15, 2);
 
 -- --------------------------------------------------------
 
@@ -97,16 +112,19 @@ CREATE TABLE `portofolio` (
   `km` int(11) DEFAULT NULL,
   `ktm` int(11) DEFAULT NULL,
   `garasi` int(11) DEFAULT NULL,
-  `harga` bigint(20) NOT NULL
+  `harga` bigint(20) NOT NULL,
+  `status_moderasi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `portofolio`
 --
 
-INSERT INTO `portofolio` (`id_port`, `url`, `title`, `img_url`, `user_id`, `related_id`, `panjang`, `lebar`, `lb`, `kt`, `km`, `ktm`, `garasi`, `harga`) VALUES
-(10, 'http://localhost/aantampan/home/post/QXJzaXRla3R1ci1FdXJvcGVhbi0xNQ', 'Arsitektur European', './assets/img/upload/anugrahsakti_portofolio_0.png', 15, 14, 1, 1, 1, 1, 1, 1, 1, 10000000),
-(11, 'http://localhost/aantampan/home/post/QXJzaXRla3R1ci1Bc2lhbi0xNQ--', 'Arsitektur Asian', './assets/img/upload/anugrahsakti_portofolio_1.png', 15, 12, 1, 1, 1, 1, 1, 1, 1, 10000000);
+INSERT INTO `portofolio` (`id_port`, `url`, `title`, `img_url`, `user_id`, `related_id`, `panjang`, `lebar`, `lb`, `kt`, `km`, `ktm`, `garasi`, `harga`, `status_moderasi`) VALUES
+(10, 'http://localhost/aantampan/home/post/QXJzaXRla3R1ci1FdXJvcGVhbi0xNQ', 'Arsitektur European', './assets/img/upload/anugrahsakti_portofolio_0.png', 15, 14, 1, 1, 1, 1, 1, 1, 1, 10000000, 1),
+(11, 'http://localhost/aantampan/home/post/QXJzaXRla3R1ci1Bc2lhbi0xNQ--', 'Arsitektur Asian', './assets/img/upload/anugrahsakti_portofolio_1.png', 15, 12, 1, 1, 1, 1, 1, 1, 1, 10000000, 1),
+(12, 'http://localhost/aantampan/home/post/VGVzdGluZy1Nb2RlcmFzaS0xNQ--', 'Testing Moderasi', './assets/img/upload/anugrahsakti_portofolio_2.png', 15, 14, 1, 1, 1, 1, 1, 1, 1, 100000000, 0),
+(13, 'http://localhost/aantampan/home/post/VGVzdC1UdWthbmctUG9ydG9mb2xpby0xNA--', 'Test Tukang Portofolio', './assets/img/upload/aditya_portofolio_0.png', 14, 13, 1, 1, 1, 1, 1, 1, 1, 10000000, 0);
 
 -- --------------------------------------------------------
 
@@ -157,7 +175,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `photopath`, `fname`, `lname`, `birthdate`, `birthplace`, `alamat`, `nohp`, `tim`, `tgldaftar`, `email`, `username`, `password`, `logged_in`, `level`) VALUES
-(1, './assets/img/upload/admin.png', 'Abdul', 'Halim', '1996-09-28', 'Palembang', 'Palembang, Palembang, Palembang,', '082181033650', NULL, '0000-00-00', 'abdulhalum1234@icloud.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, 0),
+(1, './assets/img/upload/admin.png', 'Abdul', 'Halim', '1996-09-28', 'Palembang', 'Palembang, Palembang, Palembang,', '082181033650', NULL, '0000-00-00', 'abdulhalum1234@icloud.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0),
 (12, NULL, 'anugrah', 'sakti tampan', '2019-08-25', 'palembang', 'palembang', '082181033012', NULL, '2019-12-10', 'anu@anu.com', 'anu', '13776db80d4561e5747d5bae93b18d6d', 0, 3),
 (13, './assets/img/upload/badak.png', 'Badak', 'Cula Empat', '2019-12-01', 'Kebun', 'Kebun binatang ragunan mbuh dimana', '080808080808', NULL, '2019-12-14', 'badak@cula.com', 'badak', 'e4488a0398501a35f910c10341b476c0', 0, 2),
 (14, './assets/img/upload/aditya.png', 'Adit', 'Sakti', '2019-12-01', 'rumah sakit', 'Jalan kemana mana, tapi hati tetap sepi, kasian banget dah', '0808080234234', NULL, '2019-12-14', 'aditya@gmail.com', 'aditya', 'c278dddfac37a089c24400983816a6a9', 0, 3),
@@ -181,7 +199,7 @@ ALTER TABLE `invoice`
 -- Indeks untuk tabel `janjitemu`
 --
 ALTER TABLE `janjitemu`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_janji`),
   ADD KEY `user_id` (`user_id`,`sianu_id`),
   ADD KEY `sianu_id` (`sianu_id`);
 
@@ -214,19 +232,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `janjitemu`
 --
 ALTER TABLE `janjitemu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_janji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `portofolio`
 --
 ALTER TABLE `portofolio`
-  MODIFY `id_port` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_port` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tokens`
