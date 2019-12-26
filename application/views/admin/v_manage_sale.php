@@ -53,15 +53,16 @@
                                     
 
                                   <td class="project-actions">
-                                    <button type="button" class="viewbtn btn btn-success btn-sm" data-id="<?=$row['id']?>" data-pembeliid="<?=$row['id_user']?>" data-penjualid="<?=$row['id_sianu']?>"  data-toggle="modal" data-target="#viewInvoice" >
-                                        <i class="fas fa-user"></i> View
+                                    <button type="button" class="viewbtn btn btn-info btn-sm" data-id="<?=$row['id']?>" data-pembeliid="<?=$row['id_user']?>" data-penjualid="<?=$row['id_sianu']?>"  data-toggle="modal" data-target="#viewInvoice" >
+                                        <i class="fas fa-user"></i> Lihat
                                     </button>
 
                                     <!-- <button type="button" class="editbtn btn btn-info btn-sm" data-id="<?=$row['id']?>">
                                       <i class="fas fa-pencil-alt"></i> Edit
                                     </button> -->
+
                                     <button type="button" class="deletebtn btn-danger btn-sm" data-id="<?=$row['id']?>" data-url="<?=base_url('admin/delete_invoice/'.$row['id'])?>">
-                                      <i class="fas fa-trash"></i> Delete
+                                      <i class="fas fa-trash"></i> Hapus
                                     </button>
                                   </td>
                                 </tr>

@@ -218,11 +218,6 @@ class Admin extends CI_Controller {
 	}
 
 
-
-
-
-
-
 	public function delete_invoice($id){
 		if (!empty($this->session->userdata('username'))){
 
@@ -238,9 +233,6 @@ class Admin extends CI_Controller {
 			redirect('admin');
 		}
 	}
-
-
-
 
 
 	public function check_invoice(){
@@ -263,7 +255,8 @@ class Admin extends CI_Controller {
 						      <tr>
 						        <td>No. Invoice</td>
 						        <td class="text-center" style="width:30px">:</td>
-						        <td>'.$key['no_invoice'].'</td>
+                                 <td><a href="'.base_url('home/invoice/'.$key['no_invoice']).'">'.$key['no_invoice'].'</a></td>
+						        
 						      </tr>
 						      <tr>
 						        <td>No. Order</td>
@@ -290,6 +283,16 @@ class Admin extends CI_Controller {
 						        <td class="text-center" style="width:30px">:</td>
 						        <td>'."Rp " . number_format($key['harga'],2,',','.').'</td>
 						      </tr>
+						      <tr>
+						        <td>Status</td>
+						        <td class="text-center" style="width:30px">:</td>
+						        <td>'.($key['status'] == 1 ? '<b style="color : green">Dibayar</b>' : ( $key['status'] == 2 ? '<b style="color : red">Dibatalkan</b>'  : '<b style="color : orange">Menunggu Validasi</b>' )).'</td>
+						      </tr>
+						      <tr>
+						        <td>Bukti Pembayaran</td>
+						        <td class="text-center" style="width:30px">:</td>
+						        <td><img src="'.base_url($key['urlbukti']).'"></td>
+						      </tr>
 						    </tbody>
 						  </table>';
 				}
@@ -297,5 +300,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-
+	public function validate_invoice($noinvoice){
+		echo $noinvoice;
+	}
 }

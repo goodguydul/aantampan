@@ -22,6 +22,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h5>Portofolio User</h5>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                          <i class="fas fa-plus"></i> Tambah Pengguna
+                        </button>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -58,7 +61,7 @@
                                   <td><?=($row['logged_in'] == 1 ? '<b style="color : green">Online</b>'   : '<b style="color:grey">Offline<b>' )?></td>   
 
                                   <td class="project-actions">
-                                    <button type="button" class="viewpostbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewInvoice">
+                                    <button type="button" class="viewpostbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewUser">
                                         <i class="fas fa-user"></i> View
                                     </button>
                                     <!-- <button type="button" class="editbtn btn btn-info btn-sm" data-id="<?=$row['id']?>">
@@ -82,7 +85,7 @@
         <!-- /.col -->
     </section>
     <!-- Modal -->
-    <div class="modal fade" id="viewInvoice" tabindex="-1" role="dialog" aria-labelledby="viewInvoiceLabel" aria-hidden="true">
+    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="viewUserLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -91,7 +94,26 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div id="viewInvoiceContent" class="modal-body">
+          <div id="viewUserContent" class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="addUserModalContent" class="modal-body">
             
           </div>
           <div class="modal-footer">

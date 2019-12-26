@@ -29,7 +29,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID Janji</th>
                                     <th>Tanggal Janji</th>
                                     <th>Jam</th>
                                     <th>Pembuat Janji</th>
@@ -46,8 +45,6 @@
                                 ?>
                                 <tr>
                                   <td><?=$i;?></td>
-
-                                  <td><?=$row['id_janji']?></td>
                                   <td><?=date('D, d M Y',strtotime($row['tanggal']))?></td>
                                   <td><?=date('h:i',strtotime($row['waktu']))?></td>
                                   <td><?=ucwords($row['pembuat'])?></td>
