@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Des 2019 pada 03.51
+-- Waktu pembuatan: 27 Des 2019 pada 04.20
 -- Versi server: 10.1.21-MariaDB
 -- Versi PHP: 7.2.6
 
@@ -167,20 +167,21 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `logged_in` int(11) DEFAULT NULL,
-  `level` int(11) NOT NULL
+  `level` int(11) NOT NULL,
+  `banned` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `photopath`, `fname`, `lname`, `birthdate`, `birthplace`, `alamat`, `nohp`, `tim`, `tgldaftar`, `email`, `username`, `password`, `logged_in`, `level`) VALUES
-(1, './assets/img/upload/admin.png', 'Abdul', 'Halim', '1996-09-28', 'Palembang', 'Palembang, Palembang, Palembang,', '082181033650', NULL, '0000-00-00', 'abdulhalum1234@icloud.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0),
-(12, NULL, 'anugrah', 'sakti tampan', '2019-08-25', 'palembang', 'palembang', '082181033012', NULL, '2019-12-10', 'anu@anu.com', 'anu', '13776db80d4561e5747d5bae93b18d6d', 0, 3),
-(13, './assets/img/upload/badak.png', 'Badak', 'Cula Empat', '2019-12-01', 'Kebun', 'Kebun binatang ragunan mbuh dimana', '080808080808', NULL, '2019-12-14', 'badak@cula.com', 'badak', 'e4488a0398501a35f910c10341b476c0', 0, 2),
-(14, './assets/img/upload/aditya.png', 'Adit', 'Sakti', '2019-12-01', 'rumah sakit', 'Jalan kemana mana, tapi hati tetap sepi, kasian banget dah', '0808080234234', NULL, '2019-12-14', 'aditya@gmail.com', 'aditya', 'c278dddfac37a089c24400983816a6a9', 0, 3),
-(15, './assets/img/upload/anugrahsakti.jpg', 'anugrah', 'sakti', '2012-12-12', 'Muara Enim', 'Muara enim, daktau tapi dimanonyo. jauh dari palembang', '081212121212', NULL, '2019-12-14', 'anugrahsakti05@gmail.com', 'anugrahsakti', 'd3ccb844ac68bc324e6c95e94c05e477', 0, 2),
-(16, './assets/img/upload/budisetiawan.png', 'Budi', 'Setiawan', '1996-12-12', 'Binomo', 'Russia', '080808080808', NULL, '2019-12-19', 'budisetiawan@binomo.com', 'budisetiawan', 'b110d5fabe2efdf003e47422b3f8d218', 0, 1);
+INSERT INTO `user` (`id`, `photopath`, `fname`, `lname`, `birthdate`, `birthplace`, `alamat`, `nohp`, `tim`, `tgldaftar`, `email`, `username`, `password`, `logged_in`, `level`, `banned`) VALUES
+(1, './assets/img/upload/admin.png', 'Abdul', 'Halim', '1996-09-28', 'Palembang', 'Palembang, Palembang, Palembang,', '082181033650', NULL, '0000-00-00', 'abdulhalum1234@icloud.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0, 0),
+(12, NULL, 'anugrah', 'sakti tampan', '2019-08-25', 'palembang', 'palembang', '082181033012', NULL, '2019-12-10', 'anu@anu.com', 'anu', '13776db80d4561e5747d5bae93b18d6d', 0, 3, 0),
+(13, './assets/img/upload/badak.png', 'Badak', 'Cula Empat', '2019-12-01', 'Kebun', 'Kebun binatang ragunan mbuh dimana', '080808080808', NULL, '2019-12-14', 'badak@cula.com', 'badak', 'e4488a0398501a35f910c10341b476c0', 0, 2, 0),
+(14, './assets/img/upload/aditya.png', 'Adit', 'Sakti', '2019-12-01', 'rumah sakit', 'Jalan kemana mana, tapi hati tetap sepi, kasian banget dah', '0808080234234', NULL, '2019-12-14', 'aditya@gmail.com', 'aditya', 'c278dddfac37a089c24400983816a6a9', 0, 3, 0),
+(15, './assets/img/upload/anugrahsakti.jpg', 'anugrah', 'sakti', '2012-12-12', 'Muara Enim', 'Muara enim, daktau tapi dimanonyo. jauh dari palembang', '081212121212', NULL, '2019-12-14', 'anugrahsakti05@gmail.com', 'anugrahsakti', 'd3ccb844ac68bc324e6c95e94c05e477', 0, 2, 0),
+(16, './assets/img/upload/budisetiawan.png', 'Budi', 'Setiawan', '1996-12-12', 'Binomo', 'Russia', '080808080808', NULL, '2019-12-19', 'budisetiawan@binomo.com', 'budisetiawan', 'b110d5fabe2efdf003e47422b3f8d218', 0, 1, 0);
 
 --
 -- Indexes for dumped tables
