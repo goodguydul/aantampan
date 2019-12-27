@@ -22,6 +22,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h5>Portofolio User</h5>
+                        <?php if($this->session->flashdata('status')) { echo $this->session->flashdata('status');}?>
+
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
                           <i class="fas fa-plus"></i> Tambah Pengguna
                         </button>
@@ -114,7 +116,41 @@
             </button>
           </div>
           <div id="addUserModalContent" class="modal-body">
-            
+            <div class="signup-form">
+              <form action="<?=base_url('admin/adduser')?>" method="POST">
+
+
+                <div class="form-inline">
+                  <div class="form-group">
+                      <input type="text" class="form-control" name="fname" placeholder="First Name" required="required">
+                      <span style="margin-left: 10px"></span>
+                      <input type="text" class="form-control" name="lname" placeholder="Last Name" required="required">
+                  </div>          
+                </div>
+                <br>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+                </div>   
+                <div class="form-group">
+                  <select class="form-control" name="level" required>
+                    <option value="2">Arsitek</option>
+                    <option value="3">Tukang</option>
+                  </select>
+                </div>  
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">Tambah User</button>
+                </div>
+              </form>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -348,4 +348,23 @@ class Admin extends CI_Controller {
 			redirect('admin');
 		}
 	}
+
+	public function adduser(){
+		if (isset($_POST) && !empty($_POST)) {
+			if (!empty($this->session->userdata('username'))){
+				unset($_POST['confirm_password']);
+				if($this->m_data->save_data($_POST,'user')){
+					$this->session->set_flashdata('status', '<div class="alert alert-success"><strong>Berhasil Menambahkan User!</strong></div>');
+                    redirect('admin/manage_user');
+				}else{
+					$this->session->set_flashdata('status', '<div class="alert alert-danger"><strong>Gagal Menambahkan User!</strong></div>');
+                    redirect('admin/manage_user');
+				}
+			}else{
+				redirect('admin');
+			}
+		}else{
+			redirect('admin');
+		}
+	}
 }
