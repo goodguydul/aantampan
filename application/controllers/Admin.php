@@ -301,6 +301,34 @@ class Admin extends CI_Controller {
 	}
 
 	public function validate_invoice($noinvoice){
-		echo $noinvoice;
+		if (!empty($this->session->userdata('username'))){
+
+			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
+			$set  = array('status' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
+			if($this->m_data->update_dataX($set,'invoice','no_invoice = '.$noinvoice)){
+				echo "true";
+			}else{
+				echo "false";
+			}
+
+		}else{
+			redirect('admin');
+		}
+	}
+
+	public function moderate_post($id){
+		if (!empty($this->session->userdata('username'))){
+
+			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
+			$set  = array('status_moderasi' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
+			if($this->m_data->update_dataX($set,'portofolio','id_port = '.$id)){
+				echo "true";
+			}else{
+				echo "false";
+			}
+
+		}else{
+			redirect('admin');
+		}
 	}
 }

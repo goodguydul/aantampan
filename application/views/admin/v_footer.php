@@ -66,8 +66,17 @@
       $('.deletebtn').on('click',function(e){
         deleteinvoice(e);  
       });
+
       $('.validatebtn').on('click',function(e){
         validate(e);  
+      });
+
+      $('.moderatebtn').on('click',function(e){
+        moderate(e);  
+      });
+
+      $('.deletepostbtn').on('click',function(e){
+        deleteportofolio(e);  
       });
     });
     
@@ -133,6 +142,85 @@
                       Swal.fire({
                         title: 'Berhasil',
                       text : 'Invoice '+invoice_id+' Telah Divalidasi!',
+                      icon : 'success'
+                      }).then((result)=>{
+                        location.reload(true);            
+                      });
+              },
+                    error: function(response) {         
+                        Swal.fire(
+                      'Something Error',
+                      'Ada error yang terjadi, error : '+response,
+                      'error'
+                  )         
+                    }        
+                });
+            }
+        });
+    }
+
+    function moderate(e){
+      var post_id = $('.moderatebtn').data('id');
+      Swal.fire({
+        title: 'Moderasi Portofolio',
+        text: "Apakah Anda yakin untuk Menyetujui Portofolio ID: "+ post_id +" ?",
+        icon: 'warning',
+        showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Setujui',
+            cancelButtonText: 'Tidak'
+      }).then((result) => {
+            if (result.value) {
+               e = e || window.event;
+              e.preventDefault();
+                $.ajax({
+                    type  :   'post',
+                    url   :   $('.moderatebtn').data('url'),
+                    success: function(response) {
+
+                      Swal.fire({
+                        title: 'Berhasil',
+                      text : 'Portofolio ID: '+post_id+' Telah Divalidasi!',
+                      icon : 'success'
+                      }).then((result)=>{
+                        location.reload(true);            
+                      });
+              },
+                    error: function(response) {         
+                        Swal.fire(
+                      'Something Error',
+                      'Ada error yang terjadi, error : '+response,
+                      'error'
+                  )         
+                    }        
+                });
+            }
+        });
+    }
+
+    function deleteportofolio(e){
+      Swal.fire({
+        title: 'Hapus Portofolio',
+        text: "Apakah Anda yakin untuk Menghapus Portofolio?",
+        icon: 'warning',
+        showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Tidak'
+      }).then((result) => {
+            if (result.value) {
+               e = e || window.event;
+              e.preventDefault();
+                $.ajax({
+                    type  :   'post',
+                    url   :   $('.deletepostbtn').data('url'),
+                    success: function(response) {
+
+                      Swal.fire({
+                        title: 'Dihapus',
+                      text : 'Portofolio Telah Dihapus!',
                       icon : 'success'
                       }).then((result)=>{
                         location.reload(true);            

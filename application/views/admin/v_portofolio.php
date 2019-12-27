@@ -56,13 +56,15 @@
 
                                   <td class="project-actions">
                                     <button type="button" class="viewpostbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewInvoice">
-                                        <i class="fas fa-user"></i> View
+                                        <i class="fas fa-user"></i> Lihat
                                     </button>
-                                    <!-- <button type="button" class="editbtn btn btn-info btn-sm" data-id="<?=$row['id']?>">
-                                      <i class="fas fa-pencil-alt"></i> Edit
-                                    </button> -->
+                                    <?php if ($row['status_moderasi'] != 1) {?>
+                                    <button type="button" class="moderatebtn btn btn-info btn-sm" data-id="<?=$row['id_port']?>" data-url="<?=base_url('admin/moderate_post/'.$row['id_port'])?>">
+                                      <i class="fas fa-check"></i> Setujui
+                                    </button>
+                                  <?php }?>
                                     <button type="button" class="deletepostbtn btn-danger btn-sm" data-id="<?=$row['id_port']?>" data-url="<?=base_url('admin/delete_portofolio/'.$row['id_port'])?>">
-                                      <i class="fas fa-trash"></i> Delete
+                                      <i class="fas fa-trash"></i> Hapus
                                     </button>
                                   </td>
                                 </tr>
