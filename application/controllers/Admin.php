@@ -235,6 +235,22 @@ class Admin extends CI_Controller {
 	}
 
 
+	public function validate_invoice($noinvoice){
+		if (!empty($this->session->userdata('username'))){
+
+			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
+			$set  = array('status' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
+			if($this->m_data->update_dataX($set,'invoice','no_invoice = '.$noinvoice)){
+				echo "true";
+			}else{
+				echo "false";
+			}
+
+		}else{
+			redirect('admin');
+		}
+	}
+
 	public function check_invoice(){
 		if (isset($_POST) && !empty($_POST)) {
 
@@ -300,12 +316,13 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function validate_invoice($noinvoice){
+
+	public function moderate_post($id){
 		if (!empty($this->session->userdata('username'))){
 
 			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
-			$set  = array('status' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
-			if($this->m_data->update_dataX($set,'invoice','no_invoice = '.$noinvoice)){
+			$set  = array('status_moderasi' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
+			if($this->m_data->update_dataX($set,'portofolio','id_port = '.$id)){
 				echo "true";
 			}else{
 				echo "false";
@@ -316,12 +333,12 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function moderate_post($id){
+	public function deleteuser($id){
 		if (!empty($this->session->userdata('username'))){
 
 			$userdata 	= $this->m_data->getUserdataByUsername($this->session->userdata('username'));
-			$set  = array('status_moderasi' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
-			if($this->m_data->update_dataX($set,'portofolio','id_port = '.$id)){
+			$set  = array('banned' => 1 ); // 3 dihapus, 2 dibatalkan, 1 divalidasi
+			if($this->m_data->update_dataX($set,'user','id = '.$id)){
 				echo "true";
 			}else{
 				echo "false";

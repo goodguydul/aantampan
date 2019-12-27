@@ -24,9 +24,26 @@ class Simple_login
         ));
         
         if ($query->num_rows() == 1) {
+            //get user data
+
+            $this->CI->db->select('*');
+            $this->CI->db->from('user');
+            $this->CI->db->where('username', $username);
+            $query = $this->CI->db->get();
+            
+            foreach ($query->result_array() as $row) {
+                echo $row['banned'];
+                if ($row['banned'] == 1) {
+                    $this->CI->session->set_flashdata('status', '<div class="alert alert-danger"><strong>User ini telah Di-Banned atau Dihapus!</strong></div>');
+                    redirect(site_url('login'));
+
+                }
+            }
+
 
             $this->CI->session->set_userdata('username', $username);
 
+           
             //update logged in status
             $datas = array(
                 'logged_in' => 1
@@ -35,13 +52,10 @@ class Simple_login
             $this->CI->db->where('username', $username);
             $this->CI->db->update('user', $datas);
             
-            //get user data
-
-            $this->CI->db->select('*');
-            $this->CI->db->from('user');
-            $this->CI->db->where('username', $username);
-            $query = $this->CI->db->get();
             
+            
+            
+                
             foreach ($query->result_array() as $row) {
                 $level = $row['level'];
                 $this->CI->session->set_userdata('roles', $level);

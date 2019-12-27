@@ -78,6 +78,11 @@
       $('.deletepostbtn').on('click',function(e){
         deleteportofolio(e);  
       });
+
+      $('.deleteuserbtn').on('click',function(e){
+        deleteuser(e);  
+      });
+      
     });
     
     function deleteinvoice(e){
@@ -221,6 +226,45 @@
                       Swal.fire({
                         title: 'Dihapus',
                       text : 'Portofolio Telah Dihapus!',
+                      icon : 'success'
+                      }).then((result)=>{
+                        location.reload(true);            
+                      });
+              },
+                    error: function(response) {         
+                        Swal.fire(
+                      'Something Error',
+                      'Ada error yang terjadi, error : '+response,
+                      'error'
+                  )         
+                    }        
+                });
+            }
+        });
+    }
+
+    function deleteuser(e){
+      Swal.fire({
+        title: 'Hapus User',
+        text: "Apakah Anda yakin untuk Menghapus User?",
+        icon: 'warning',
+        showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Tidak'
+      }).then((result) => {
+            if (result.value) {
+               e = e || window.event;
+              e.preventDefault();
+                $.ajax({
+                    type  :   'post',
+                    url   :   $('.deleteuserbtn').data('url'),
+                    success: function(response) {
+
+                      Swal.fire({
+                        title: 'Dihapus',
+                      text : 'User Telah Dihapus!',
                       icon : 'success'
                       }).then((result)=>{
                         location.reload(true);            

@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Portofolio</h1>
+                    <h1>Manage User</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -61,13 +61,13 @@
                                   <td><?=($row['logged_in'] == 1 ? '<b style="color : green">Online</b>'   : '<b style="color:grey">Offline<b>' )?></td>   
 
                                   <td class="project-actions">
-                                    <button type="button" class="viewpostbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewUser">
+                                    <button type="button" class="viewuserbtn btn btn-success btn-sm" data-toggle="modal" data-target="#viewUser">
                                         <i class="fas fa-user"></i> View
                                     </button>
                                     <!-- <button type="button" class="editbtn btn btn-info btn-sm" data-id="<?=$row['id']?>">
                                       <i class="fas fa-pencil-alt"></i> Edit
                                     </button> -->
-                                    <button type="button" class="deletepostbtn btn-danger btn-sm" data-id="<?=$row['id']?>" data-url="<?=base_url('admin/delete_user/'.$row['id'])?>">
+                                    <button type="button" class="deleteuserbtn btn-danger btn-sm" data-id="<?=$row['id']?>" data-url="<?=base_url('admin/deleteuser/'.$row['id'])?>">
                                       <i class="fas fa-trash"></i> Delete
                                     </button>
                                   </td>

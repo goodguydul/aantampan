@@ -17,6 +17,7 @@ class M_data extends CI_Model{
         $this->db->select('*');
         $this->db->from('user');
         $this->db->where('level > 1 ');
+        $this->db->where('banned !=','1');
         $query  =   $this->db->get();
         return $query->result_array();
     }
@@ -191,6 +192,7 @@ class M_data extends CI_Model{
         $this->db->select('*');
         $this->db->from('user');
         $this->db->where('level','3');
+        $this->db->where('banned !=','1');
         $query  =   $this->db->get();
         return $query->result_array();
     }
@@ -199,6 +201,7 @@ class M_data extends CI_Model{
         $this->db->select('*');
         $this->db->from('user');
         $this->db->where('level','2');
+        $this->db->where('banned !=','1');
         $query  =   $this->db->get();
         return $query->result_array();
     }
@@ -290,7 +293,8 @@ class M_data extends CI_Model{
     function getAllUsers(){
         $this->db->select('*');
         $this->db->from('user');
-        $this->db->where('level != 0'); // 0 not yet validated
+        $this->db->where('level != 0');
+        $this->db->where('banned !=','1');
         $query      = $this->db->get();
         return $query->result_array();
     }
